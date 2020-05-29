@@ -17,6 +17,7 @@ namespace DAL
         {
             _connection = connection._conexion;
         }
+        //
         public int Guardar(Cliente cliente)
         {
             using (var command = _connection.CreateCommand())
