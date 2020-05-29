@@ -45,7 +45,7 @@
     <Compile Include="DetalleFactura.cs" />
     <Compile Include="Facturacs.cs" />
     <Compile Include="FormaPago.cs" />
-    <Compile Include="Persona.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Productos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prveedorcs.cs" />

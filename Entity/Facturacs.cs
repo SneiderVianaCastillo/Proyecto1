@@ -11,12 +11,12 @@ namespace Entity
         public List<DetalleFactura> DetalleFacturas { get; set; }
         public int Codigo { get; set; }
         public string CodigoCliente { get; set; }
-        public Persona Empleado { get; set; }
+        public Cliente Empleado { get; set; }
         public DateTime Fecha { get; set; }
         public FormaPago FormaPago { get; set; }
         public decimal Iva { get; set; }
         public bool EstadoFactura { get; set; }
-        public Persona cliente { get; set; }
+        public Cliente cliente { get; set; }
         public decimal SubTotal { get; set; }
         public decimal TotalIva { get; set; }
         public decimal Total { get; set; }
