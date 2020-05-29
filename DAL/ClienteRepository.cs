@@ -22,7 +22,7 @@ namespace DAL
             using (var command = _connection.CreateCommand())
             {
                 command.CommandText = @"Insert Into Cliente (Cliente_id,PrimerNombre,SegundoNombre, PrimerApellido, SegundoApellido,Barrio,Ciudad,Comuna,N_Casa,Telefono) 
-                                      values (:Identificacion,:Nombre,:Edad,:Sexo,:Pulsacion)";
+                                      values (:Cliente_id,:PrimerNombre,:SegundoNombre, :PrimerApellido, :SegundoApellido,:Barrio,:Ciudad,:Comuna,:N_Casa,:Telefono)";
                 command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
