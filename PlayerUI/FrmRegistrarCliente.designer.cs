@@ -128,6 +128,7 @@
             this.BtnGuardar.TabIndex = 6;
             this.BtnGuardar.Text = "GUARDAR";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // button5
             // 
