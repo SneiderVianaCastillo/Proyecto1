@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using Oracle.ManagedDataAccess.Client;
 using System.Linq;
 using System.Text;
