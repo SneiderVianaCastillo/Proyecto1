@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    class DetalleFactura
+   public class DetalleFactura
     {
         public int CodigoFactura { get; set; }
         public int CodigoProducto { get; set; }
@@ -21,17 +21,19 @@ namespace Entity
 
         public void CalcularSubTotal()
         {
-            Subtotal = PrecioUnitario * Cantidad;
+            Subtotal = productos.PrecioVenta  * Cantidad;
         }
 
         public void CalcularIva()
         {
-            Iva = productos.Iva * Cantidad;
+            Iva = productos.Iva * Subtotal;
         }
 
-        public void CalcularCantidad()
+       public void CalcularTotal()
         {
-            productos.Existencia = productos.Existencia - Cantidad;
+            CalcularSubTotal();
+            CalcularIva();
+            Total = Subtotal + Iva;
         }
     }
 }

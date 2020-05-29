@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBilling", "PlayerUI\Qu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entity", "Entity\Entity.csproj", "{5A5BA495-2135-4DA0-91D7-8651A3B990ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{54E9D6A8-319D-49D7-AB9A-410088182B1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{7CCDB212-8A52-42D1-89C2-1CF76E6F3332}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{5A5BA495-2135-4DA0-91D7-8651A3B990ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A5BA495-2135-4DA0-91D7-8651A3B990ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A5BA495-2135-4DA0-91D7-8651A3B990ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E9D6A8-319D-49D7-AB9A-410088182B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E9D6A8-319D-49D7-AB9A-410088182B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E9D6A8-319D-49D7-AB9A-410088182B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E9D6A8-319D-49D7-AB9A-410088182B1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CCDB212-8A52-42D1-89C2-1CF76E6F3332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CCDB212-8A52-42D1-89C2-1CF76E6F3332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CCDB212-8A52-42D1-89C2-1CF76E6F3332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CCDB212-8A52-42D1-89C2-1CF76E6F3332}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

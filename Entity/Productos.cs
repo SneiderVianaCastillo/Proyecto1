@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    class Productos
+    public class Productos
     {
         public int Codigo { get; set; }
         public string Descripcion { get; set; }
@@ -14,27 +14,28 @@ namespace Entity
         public int PrecioVenta { get; set; }
         public int PrecioCosto { get; set; }
         public string Tipo { get; set; }
-        public int Cantidad { get; set; }
+      
         public decimal Iva { get; set; }
 
-      public void CalcularExistencia()
+      public void CalcularExistencia(int cantidad)
         {
-            Existencia = Existencia + Cantidad;
+            Existencia = Existencia + cantidad;
+        }
+        public void DescontarExistencia(int cantidad)
+        {
+            Existencia = Existencia - cantidad;
         }
 
         public bool Verificarexistencia()
         {
-            Existencia = Existencia - Cantidad;
+            
             if (Existencia<0)
             {
                 return false;
             }
             return true;
         }
-        public decimal CalcularIva()
-        {
-            return Iva = Convert.ToDecimal(PrecioVenta * 0.19) * Cantidad;
-        }
+      
 
     }
 }
