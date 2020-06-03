@@ -1,6 +1,6 @@
 ﻿namespace PlayerUI
 {
-    partial class FrmConsultarClientes
+    partial class FrmConsultarTerceros
     {
         /// <summary>
         /// Required designer variable.
@@ -31,10 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.BtnConsultarClientes = new System.Windows.Forms.Button();
-            this.dtgConsultarClientes = new System.Windows.Forms.DataGridView();
+            this.dtgConsultarTerceros = new System.Windows.Forms.DataGridView();
             this.comboTipo = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarClientes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarTerceros)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -79,13 +79,13 @@
             this.BtnConsultarClientes.UseVisualStyleBackColor = false;
             this.BtnConsultarClientes.Click += new System.EventHandler(this.BtnConsultarClientes_Click);
             // 
-            // dtgConsultarClientes
+            // dtgConsultarTerceros
             // 
-            this.dtgConsultarClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtgConsultarClientes.Location = new System.Drawing.Point(54, 163);
-            this.dtgConsultarClientes.Name = "dtgConsultarClientes";
-            this.dtgConsultarClientes.Size = new System.Drawing.Size(667, 329);
-            this.dtgConsultarClientes.TabIndex = 19;
+            this.dtgConsultarTerceros.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgConsultarTerceros.Location = new System.Drawing.Point(12, 163);
+            this.dtgConsultarTerceros.Name = "dtgConsultarTerceros";
+            this.dtgConsultarTerceros.Size = new System.Drawing.Size(771, 329);
+            this.dtgConsultarTerceros.TabIndex = 19;
             // 
             // comboTipo
             // 
@@ -117,13 +117,13 @@
             this.ClientSize = new System.Drawing.Size(795, 512);
             this.Controls.Add(this.comboTipo);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.dtgConsultarClientes);
+            this.Controls.Add(this.dtgConsultarTerceros);
             this.Controls.Add(this.BtnConsultarClientes);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label1);
             this.Name = "FrmConsultarClientes";
             this.Text = "Form3";
-            ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarClientes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarTerceros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -133,7 +133,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button BtnConsultarClientes;
-        private System.Windows.Forms.DataGridView dtgConsultarClientes;
+        private System.Windows.Forms.DataGridView dtgConsultarTerceros;
         private System.Windows.Forms.ComboBox comboTipo;
         private System.Windows.Forms.Label label13;
     }

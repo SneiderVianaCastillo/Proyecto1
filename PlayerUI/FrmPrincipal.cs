@@ -44,14 +44,14 @@ namespace PlayerUI
         #region MediaSubMenu
         private void button2_Click(object sender, EventArgs e)
         {
-            openChildForm(new FrmRegistrarCliente());
+            openChildForm(new FrmRegistrarTerceros());
            
             hideSubMenu();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            openChildForm(new FrmConsultarClientes());
+            openChildForm(new FrmConsultarTerceros());
           
             hideSubMenu();
         }

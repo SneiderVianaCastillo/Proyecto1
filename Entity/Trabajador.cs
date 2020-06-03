@@ -8,7 +8,6 @@ namespace Entity
 {
     public class Trabajador : Cliente
     {
-        public string Trabajador_Id { get; set; }
         public string Cargo { get; set; }
     }
 }

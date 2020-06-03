@@ -25,7 +25,7 @@ namespace DAL
             {
                 command.CommandText = "PKG_INSERTAR_TRAB.INSERTAR_TRABAJADOR";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Trabajador_Id;
+                command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = trabajador.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = trabajador.SegundoNombre;
                 command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = trabajador.PrimerApellido;
@@ -50,7 +50,7 @@ namespace DAL
         {
             if (!dataReader.HasRows) return null;
             Trabajador trabajador = new Trabajador();
-            trabajador.Trabajador_Id = dataReader.GetString(0);
+            trabajador.Identificacion = dataReader.GetString(0);
             trabajador.PrimerNombre = dataReader.GetString(1);
             trabajador.SegundoNombre = dataReader.GetString(2);
             trabajador.PrimerApellido = dataReader.GetString(3);
@@ -105,12 +105,12 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update Trabajador set Trabajador_id=:Trabajador_Id,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
+                command.CommandText = @"update Trabajador set Trabajador_Id=:Identificacion,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
                 PrimerApellido=:PrimerApellido, SegundoApellido=:SegundoApellido,Telefono=:Telefono,Cargo=:Cargo,Barrio=:Barrio,Ciudad=:Ciudad,
                 Comuna=:Comuna,N_Casa=:N_Casa,Email=:Email
-                                        where Trabajador_Id=:Trabajador_Id";
+                                        where Trabajador_Id=:Identificacion";
 
-                command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Trabajador_Id;
+                command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = trabajador.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = trabajador.SegundoNombre;
                 command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = trabajador.PrimerApellido;
@@ -131,6 +131,17 @@ namespace DAL
             }
 
 
+        }
+
+        public int Eliminar(Trabajador trabajador)
+        {
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = "Delete from Trabajador where Trabajador_id=:Identificacion";
+                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
+                var filas = command.ExecuteNonQuery();
+                return filas;
+            }
         }
     }
 }

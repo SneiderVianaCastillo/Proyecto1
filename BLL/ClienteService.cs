@@ -33,7 +33,7 @@ namespace BLL
                 conexion.Open();
 
 
-                if (repositorio.BuscarPorIdentificacion(cliente.Cliente_id) == null)
+                if (repositorio.BuscarPorIdentificacion(cliente.Identificacion) == null)
                 {
                     repositorio.Guardar(cliente);
                     mensajeEmail = email.EnviarEmail(cliente);
@@ -145,7 +145,7 @@ namespace BLL
             try
             {
                 conexion.Open();
-                var clienteVieja = repositorio.BuscarPorIdentificacion(clienteNuevo.Cliente_id);
+                var clienteVieja = repositorio.BuscarPorIdentificacion(clienteNuevo.Identificacion);
                 if (clienteVieja != null)
                 {
                     repositorio.Modificar(clienteNuevo);
@@ -154,7 +154,7 @@ namespace BLL
                 }
                 else
                 {
-                    return ($"Lo sentimos, {clienteNuevo.Cliente_id} no se encuentra registrada.");
+                    return ($"Lo sentimos, {clienteNuevo.Identificacion} no se encuentra registrada.");
                 }
             }
             catch (Exception e)

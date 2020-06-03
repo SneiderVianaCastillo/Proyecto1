@@ -14,13 +14,13 @@ using static BLL.TrabajadorService;
 
 namespace PlayerUI
 {
-    public partial class FrmRegistrarCliente : Form
+    public partial class FrmRegistrarTerceros : Form
     {
         ClienteService clienteService;
         Cliente cliente;
         TrabajadorService trabajadorService;
         Trabajador trabajador;
-        public FrmRegistrarCliente()
+        public FrmRegistrarTerceros()
         {
             InitializeComponent();
             trabajadorService = new TrabajadorService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
@@ -45,7 +45,7 @@ namespace PlayerUI
         private Cliente MapearCliente()
         {
             cliente = new Cliente();
-            cliente.Cliente_id = txtIdentificacion.Text;
+            cliente.Identificacion = txtIdentificacion.Text;
             cliente.PrimerNombre = txtPrimerNombreText.Text;
             cliente.SegundoNombre = txtSegundoNombreText.Text;
             cliente.PrimerApellido = txtPrimerApellidoText.Text;
@@ -62,7 +62,7 @@ namespace PlayerUI
         private Trabajador MapearTrabajador()
         {
             trabajador = new Trabajador();
-            trabajador.Trabajador_Id = txtIdentificacion.Text;
+            trabajador.Identificacion = txtIdentificacion.Text;
             trabajador.PrimerNombre = txtPrimerNombreText.Text;
             trabajador.SegundoNombre = txtSegundoNombreText.Text;
             trabajador.PrimerApellido = txtPrimerApellidoText.Text;
@@ -92,7 +92,7 @@ namespace PlayerUI
                 Trabajador trabajador = MapearTrabajador();
                 string mensaje2 = trabajadorService.Guardar(trabajador);
                 MessageBox.Show(mensaje2, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                //Limpiar();
+                Limpiar();
             }
  
         }
@@ -110,6 +110,7 @@ namespace PlayerUI
            txtComuna.Text = "";
             txtCasa.Text = "";
             txtTelefono.Text = "";
+            txtCorreo.Text = "";
         }
 
         private void FrmRegistrarCliente_Load(object sender, EventArgs e)
@@ -119,20 +120,42 @@ namespace PlayerUI
 
         private void butEliminar_Click(object sender, EventArgs e)
         {
-            string cliente_id = txtIdentificacion.Text;
-            if (cliente_id != "")
+            string tipo = comboTipo.Text;
+            if (tipo == "Cliente")
             {
-                var respuesta = MessageBox.Show("Está seguro de eliminar la información", "Mensaje de Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (respuesta == DialogResult.Yes)
+                string cliente_id = txtIdentificacion.Text;
+                if (cliente_id != "")
                 {
-                    string mensaje = clienteService.Eliminar(cliente_id);
-                    MessageBox.Show(mensaje, "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    var respuesta = MessageBox.Show("Está seguro de eliminar la información", "Mensaje de Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        string mensaje = clienteService.Eliminar(cliente_id);
+                        MessageBox.Show(mensaje, "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor digite la cedula de la persona a modificar y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             else
             {
-                MessageBox.Show("Por favor digite la cedula de la persona a modificar y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                string trabajador_id = txtIdentificacion.Text;
+                if (trabajador_id != "")
+                {
+                    var respuesta = MessageBox.Show("Está seguro de eliminar la información", "Mensaje de Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        string mensaje = trabajadorService.Eliminar(trabajador_id);
+                        MessageBox.Show(mensaje, "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Por favor digite la cedula de la persona a modificar y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+            Limpiar();
         }
 
         private void butBuscar_Click(object sender, EventArgs e)
@@ -236,8 +259,13 @@ namespace PlayerUI
 
                 }
             }
-           
-  
+
+            Limpiar();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

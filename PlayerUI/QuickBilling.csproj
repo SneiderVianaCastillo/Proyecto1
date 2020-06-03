@@ -73,17 +73,17 @@
     <Compile Include="FrmPrincipal.designer.cs">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmRegistrarCliente.cs">
+    <Compile Include="FrmRegistrarTerceros.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmRegistrarCliente.designer.cs">
-      <DependentUpon>FrmRegistrarCliente.cs</DependentUpon>
+    <Compile Include="FrmRegistrarTerceros.designer.cs">
+      <DependentUpon>FrmRegistrarTerceros.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmConsultarClientes.cs">
+    <Compile Include="FrmConsultarTerceros.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmConsultarClientes.designer.cs">
-      <DependentUpon>FrmConsultarClientes.cs</DependentUpon>
+    <Compile Include="FrmConsultarTerceros.designer.cs">
+      <DependentUpon>FrmConsultarTerceros.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmRegistrarVenta.cs">
       <SubType>Form</SubType>
@@ -105,11 +105,11 @@
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmRegistrarCliente.resx">
-      <DependentUpon>FrmRegistrarCliente.cs</DependentUpon>
+    <EmbeddedResource Include="FrmRegistrarTerceros.resx">
+      <DependentUpon>FrmRegistrarTerceros.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmConsultarClientes.resx">
-      <DependentUpon>FrmConsultarClientes.cs</DependentUpon>
+    <EmbeddedResource Include="FrmConsultarTerceros.resx">
+      <DependentUpon>FrmConsultarTerceros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmRegistrarVenta.resx">
       <DependentUpon>FrmRegistrarVenta.cs</DependentUpon>

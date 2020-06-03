@@ -25,7 +25,7 @@ namespace DAL
             {
                 command.CommandText = "PKG_INSERTAR.INSERTAR_CLIENTE";
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
+                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
                 command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = cliente.PrimerApellido;
@@ -60,7 +60,7 @@ namespace DAL
         {
             if (!dataReader.HasRows) return null;
             Cliente persona = new Cliente();
-            persona.Cliente_id = dataReader.GetString(0);
+            persona.Identificacion = dataReader.GetString(0);
             persona.PrimerNombre = dataReader.GetString(1);
             persona.SegundoNombre = dataReader.GetString(2);
             persona.PrimerApellido = dataReader.GetString(3);
@@ -99,8 +99,8 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Delete from cliente where Cliente_id=:Cliente_id";
-                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
+                command.CommandText = "Delete from cliente where Cliente_id=:Identificacion";
+                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
                 var filas = command.ExecuteNonQuery();
                 return filas;
             }
@@ -110,12 +110,12 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update cliente set Cliente_id=:Cliente_id,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
+                command.CommandText = @"update cliente set Cliente_id=:Identificacion,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
                 PrimerApellido=:PrimerApellido, SegundoApellido=:SegundoApellido,Barrio=:Barrio,Ciudad=:Ciudad,
                 Comuna=:Comuna,N_Casa=:N_Casa,Telefono=:Telefono,Email=:Email
-                                        where Cliente_id=:Cliente_id";
+                                        where Cliente_id=:Identificacion";
 
-                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
+                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
                 command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = cliente.PrimerApellido;
@@ -136,6 +136,8 @@ namespace DAL
 
 
         }
+
+
 
     }
     }

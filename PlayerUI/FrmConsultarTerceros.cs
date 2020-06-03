@@ -14,11 +14,11 @@ using static BLL.TrabajadorService;
 
 namespace PlayerUI
 {
-    public partial class FrmConsultarClientes : Form
+    public partial class FrmConsultarTerceros : Form
     {
         ClienteService clienteService;
         TrabajadorService trabajadorService;
-        public FrmConsultarClientes()
+        public FrmConsultarTerceros()
         {
             trabajadorService = new TrabajadorService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
 
@@ -38,20 +38,20 @@ namespace PlayerUI
             {
                 ConsultaClienteRespuesta respuesta = new ConsultaClienteRespuesta();
 
-                dtgConsultarClientes.DataSource = null;
+                dtgConsultarTerceros.DataSource = null;
                 respuesta = clienteService.Consultar();
-                dtgConsultarClientes.DataSource = respuesta.clientes;
-                dtgConsultarClientes.Refresh();
+                dtgConsultarTerceros.DataSource = respuesta.clientes;
+                dtgConsultarTerceros.Refresh();
                 MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 ConsultaTrabajadorRespuesta respuesta2 = new ConsultaTrabajadorRespuesta();
 
-                dtgConsultarClientes.DataSource = null;
+                dtgConsultarTerceros.DataSource = null;
                 respuesta2 = trabajadorService.Consultar();
-                dtgConsultarClientes.DataSource = respuesta2.trabajadores;
-                dtgConsultarClientes.Refresh();
+                dtgConsultarTerceros.DataSource = respuesta2.trabajadores;
+                dtgConsultarTerceros.Refresh();
                 MessageBox.Show(respuesta2.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
  

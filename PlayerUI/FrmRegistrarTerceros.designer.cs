@@ -1,6 +1,6 @@
 ﻿namespace PlayerUI
 {
-    partial class FrmRegistrarCliente
+    partial class FrmRegistrarTerceros
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistrarCliente));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistrarTerceros));
             this.label1 = new System.Windows.Forms.Label();
             this.butBuscar = new System.Windows.Forms.Button();
             this.butEliminar = new System.Windows.Forms.Button();

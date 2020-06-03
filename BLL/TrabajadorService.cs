@@ -31,7 +31,7 @@ namespace BLL
                 conexion.Open();
 
 
-                if (repositorio.BuscarPorIdentificacionTrab(trabajador.Trabajador_Id) == null)
+                if (repositorio.BuscarPorIdentificacionTrab(trabajador.Identificacion) == null)
                 {
                     repositorio.Guardar(trabajador);
                     mensajeEmail = email.EnviarEmail(trabajador);
@@ -53,14 +53,14 @@ namespace BLL
             public Trabajador trabajador { get; set; }
         }
 
-        public BusquedaTrabajadorRespuesta BuscarxIdentificacionTrab(string trabajador_id)
+        public BusquedaTrabajadorRespuesta BuscarxIdentificacionTrab(string Identificacion)
         {
             BusquedaTrabajadorRespuesta respuesta = new BusquedaTrabajadorRespuesta();
             try
             {
 
                 conexion.Open();
-                respuesta.trabajador = repositorio.BuscarPorIdentificacionTrab(trabajador_id);
+                respuesta.trabajador = repositorio.BuscarPorIdentificacionTrab(Identificacion);
                 conexion.Close();
                 respuesta.Mensaje = (respuesta.trabajador != null) ? "Se encontró el trabajador buscado" : "El Trabajador  no existe";
                 respuesta.Error = false;
@@ -118,7 +118,7 @@ namespace BLL
             try
             {
                 conexion.Open();
-                var trabajadorVieja = repositorio.BuscarPorIdentificacionTrab(trabajadorNuevo.Trabajador_Id);
+                var trabajadorVieja = repositorio.BuscarPorIdentificacionTrab(trabajadorNuevo.Identificacion);
                 if (trabajadorVieja != null)
                 {
                     repositorio.Modificar(trabajadorNuevo);
@@ -127,7 +127,33 @@ namespace BLL
                 }
                 else
                 {
-                    return ($"Lo sentimos, {trabajadorNuevo.Trabajador_Id} no se encuentra registrada.");
+                    return ($"Lo sentimos, {trabajadorNuevo.Identificacion} no se encuentra registrada.");
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error de la Aplicación: {e.Message}";
+            }
+            finally { conexion.Close(); }
+
+        }
+
+        public string Eliminar(string trabajador_id)
+        {
+            try
+            {
+                conexion.Open();
+                var trabajador = repositorio.BuscarPorIdentificacionTrab(trabajador_id);
+                if (trabajador != null)
+                {
+                    repositorio.Eliminar(trabajador);
+                    conexion.Close();
+                    return ($"El Cliente {trabajador.PrimerNombre} se ha eliminado satisfactoriamente.");
+                }
+                else
+                {
+                    return ($"Lo sentimos, {trabajador_id} no se encuentra registrada.");
                 }
             }
             catch (Exception e)
