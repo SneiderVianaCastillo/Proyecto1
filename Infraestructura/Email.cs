@@ -21,13 +21,13 @@ namespace Infraestructura
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new System.Net.NetworkCredential("sneiderviana7@gmail.com", "carmencastillo14");
+            smtp.Credentials = new System.Net.NetworkCredential("quickbillin2019@gmail.com", "programacion3");
         }
         private void ConfigurarEmail(Cliente cliente) {
             email = new MailMessage();
             email.To.Add(cliente.Email);
-            email.From = new MailAddress("sneiderviana7@gmail.com");
-            email.Subject = "(sneider viana) Registro de Usuario "
+            email.From = new MailAddress("quickbillin2019@gmail.com");
+            email.Subject = " Registro de Usuario "
 
    + DateTime.Now.ToString("dd/MMM/yyy hh:mm:ss");
 

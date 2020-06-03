@@ -35,6 +35,8 @@ namespace DAL
                 command.Parameters.Add("Comuna", OracleDbType.Varchar2).Value = cliente.Comuna;
                 command.Parameters.Add("N_Casa", OracleDbType.Varchar2).Value = cliente.N_Casa;
                 command.Parameters.Add("Telefono", OracleDbType.Varchar2).Value = cliente.Telefono;
+                command.Parameters.Add("Email", OracleDbType.Varchar2).Value = cliente.Email;
+
 
                 command.ExecuteNonQuery();
                 
@@ -46,7 +48,7 @@ namespace DAL
             OracleDataReader dataReader;
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "select Cliente_id,PrimerNombre,SegundoNombre, PrimerApellido, SegundoApellido,Barrio,Ciudad,Comuna,N_Casa,Telefono from cliente where Cliente_id=:Cliente_id";
+                command.CommandText = "select Cliente_id,PrimerNombre,SegundoNombre, PrimerApellido, SegundoApellido,Barrio,Ciudad,Comuna,N_Casa,Telefono,Email from cliente where Cliente_id=:Cliente_id";
                 command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente_id;
                 dataReader = command.ExecuteReader();
                 dataReader.Read();
@@ -65,9 +67,11 @@ namespace DAL
             persona.SegundoApellido = dataReader.GetString(4);
             persona.Barrio = dataReader.GetString(5);
             persona.Ciudad = dataReader.GetString(6);
-            persona.Barrio = dataReader.GetString(7);
+            persona.Comuna = dataReader.GetString(7);
             persona.N_Casa = dataReader.GetString(8);
             persona.Telefono = dataReader.GetString(9);
+            persona.Email = dataReader.GetString(10);
+
             return persona;
 
         }
@@ -91,24 +95,46 @@ namespace DAL
             }
             return clientes;
         }
-        public List<Cliente> Consultar2()
+        public int Eliminar(Cliente cliente)
         {
-            OracleDataReader dataReader;
-            List<Cliente> clientes = new List<Cliente>();
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Select * from cliente ";
-                dataReader = command.ExecuteReader();
-                if (dataReader.HasRows)
-                {
-                    while (dataReader.Read())
-                    {
-                        Cliente cliente = DataReaderMapearToClientes(dataReader);
-                        clientes.Add(cliente);
-                    }
-                }
+                command.CommandText = "Delete from cliente where Cliente_id=:Cliente_id";
+                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
+                var filas = command.ExecuteNonQuery();
+                return filas;
             }
-            return clientes;
+        }
+
+        public int Modificar(Cliente cliente)
+        {
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = @"update cliente set Cliente_id=:Cliente_id,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
+                PrimerApellido=:PrimerApellido, SegundoApellido=:SegundoApellido,Barrio=:Barrio,Ciudad=:Ciudad,
+                Comuna=:Comuna,N_Casa=:N_Casa,Telefono=:Telefono,Email=:Email
+                                        where Cliente_id=:Cliente_id";
+
+                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
+                command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
+                command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
+                command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = cliente.PrimerApellido;
+                command.Parameters.Add("SegundoApellido", OracleDbType.Varchar2).Value = cliente.SegundoApellido;
+                command.Parameters.Add("Barrio", OracleDbType.Varchar2).Value = cliente.Barrio;
+                command.Parameters.Add("Ciudad", OracleDbType.Varchar2).Value = cliente.Ciudad;
+                command.Parameters.Add("Comuna", OracleDbType.Varchar2).Value = cliente.Comuna;
+                command.Parameters.Add("N_Casa", OracleDbType.Varchar2).Value = cliente.N_Casa;
+                command.Parameters.Add("Telefono", OracleDbType.Varchar2).Value = cliente.Telefono;
+                command.Parameters.Add("Email", OracleDbType.Varchar2).Value = cliente.Email;
+
+
+                OracleTransaction transaction = _connection.BeginTransaction();
+                var filas = command.ExecuteNonQuery();
+                transaction.Commit();
+                return filas;
+            }
+
+
         }
 
     }

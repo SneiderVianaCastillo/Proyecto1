@@ -37,7 +37,7 @@ namespace BLL
                 {
                     repositorio.Guardar(cliente);
                     mensajeEmail = email.EnviarEmail(cliente);
-                    return $"Se guardaron los  de {cliente.PrimerNombre}datos satisfactoriamente" + mensajeEmail;
+                    return $"Se guardaron los datos de {cliente.PrimerNombre} datos satisfactoriamente" + mensajeEmail;
                 }
                 return $"La persona ya existe";
             }
@@ -62,7 +62,7 @@ namespace BLL
             {
 
                 conexion.Open();
-                respuesta.clientes = repositorio.Consultar2();
+                respuesta.clientes = repositorio.Consultar();
                 conexion.Close();
                 if (respuesta.clientes.Count > 0)
                 {
@@ -85,5 +85,85 @@ namespace BLL
 
         }
 
+        public string Eliminar(string cliente_id)
+        {
+            try
+            {
+                conexion.Open();
+                var cliente = repositorio.BuscarPorIdentificacion(cliente_id);
+                if (cliente != null)
+                {
+                    repositorio.Eliminar(cliente);
+                    conexion.Close();
+                    return ($"El Cliente {cliente.PrimerNombre} se ha eliminado satisfactoriamente.");
+                }
+                else
+                {
+                    return ($"Lo sentimos, {cliente_id} no se encuentra registrada.");
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error de la Aplicación: {e.Message}";
+            }
+            finally { conexion.Close(); }
+
+        }
+        public class BusquedaClienteRespuesta
+        {
+            public bool Error { get; set; }
+            public string Mensaje { get; set; }
+            public Cliente cliente { get; set; }
+        }
+
+        public BusquedaClienteRespuesta BuscarxIdentificacion(string cliente_id)
+        {
+            BusquedaClienteRespuesta respuesta = new BusquedaClienteRespuesta();
+            try
+            {
+
+                conexion.Open();
+                respuesta.cliente = repositorio.BuscarPorIdentificacion(cliente_id);
+                conexion.Close();
+                respuesta.Mensaje = (respuesta.cliente != null) ? "Se encontró el cliente buscado" : "El cliente buscado no existe";
+                respuesta.Error = false;
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+
+                respuesta.Mensaje = $"Error de la Aplicacion: {e.Message}";
+                respuesta.Error = true;
+                return respuesta;
+            }
+            finally { conexion.Close(); }
+        }
+
+        public string Modificar(Cliente clienteNuevo)
+        {
+            try
+            {
+                conexion.Open();
+                var clienteVieja = repositorio.BuscarPorIdentificacion(clienteNuevo.Cliente_id);
+                if (clienteVieja != null)
+                {
+                    repositorio.Modificar(clienteNuevo);
+                    conexion.Close();
+                    return ($"El Cliente {clienteNuevo.PrimerNombre} se ha modificado satisfactoriamente.");
+                }
+                else
+                {
+                    return ($"Lo sentimos, {clienteNuevo.Cliente_id} no se encuentra registrada.");
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error de la Aplicación: {e.Message}";
+            }
+            finally { conexion.Close(); }
+
+        }
     }
 }

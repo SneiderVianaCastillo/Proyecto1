@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using Entity;
+using static BLL.ClienteService;
 
 namespace PlayerUI
 {
@@ -39,16 +40,16 @@ namespace PlayerUI
         private Cliente MapearCliente()
         {
             cliente = new Cliente();
-            cliente.Cliente_id = texIdentificacion.Text;
-            cliente.PrimerNombre = PrimerNombreText.Text;
-            cliente.SegundoNombre = SegundoNombreText.Text;
-            cliente.PrimerApellido = PrimerApellidoText.Text;
-            cliente.SegundoApellido = SegundoApellidotext.Text;
-            cliente.Ciudad = textCiudad.Text;
-            cliente.Barrio = BarrioText.Text;
-            cliente.Comuna =ComunaText.Text;
-            cliente.N_Casa = textDireccion.Text;
-            cliente.Telefono = textTelefono.Text;
+            cliente.Cliente_id = txtIdentificacion.Text;
+            cliente.PrimerNombre = txtPrimerNombreText.Text;
+            cliente.SegundoNombre = txtSegundoNombreText.Text;
+            cliente.PrimerApellido = txtPrimerApellidoText.Text;
+            cliente.SegundoApellido = txtSegundoApellido.Text;
+            cliente.Ciudad = txtCiudad.Text;
+            cliente.Barrio = txtBarrio.Text;
+            cliente.Comuna =txtComuna.Text;
+            cliente.N_Casa = txtCasa.Text;
+            cliente.Telefono = txtTelefono.Text;
             cliente.Email = txtCorreo.Text;
             return cliente;
 
@@ -62,16 +63,87 @@ namespace PlayerUI
         }
         public void Limpiar()
         {
-             texIdentificacion.Text ="";
-            PrimerNombreText.Text = "";
-            SegundoNombreText.Text = "";
-            PrimerApellidoText.Text = "";
-           SegundoApellidotext.Text = "";
-            textCiudad.Text = "";
-            BarrioText.Text = "";
-           ComunaText.Text = "";
-            textDireccion.Text = "";
-            textTelefono.Text = "";
+             txtIdentificacion.Text ="";
+            txtPrimerNombreText.Text = "";
+            txtSegundoNombreText.Text = "";
+            txtPrimerApellidoText.Text = "";
+           txtSegundoApellido.Text = "";
+            txtCiudad.Text = "";
+            txtBarrio.Text = "";
+           txtComuna.Text = "";
+            txtCasa.Text = "";
+            txtTelefono.Text = "";
+        }
+
+        private void FrmRegistrarCliente_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butEliminar_Click(object sender, EventArgs e)
+        {
+            string cliente_id = txtIdentificacion.Text;
+            if (cliente_id != "")
+            {
+                var respuesta = MessageBox.Show("Está seguro de eliminar la información", "Mensaje de Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    string mensaje = clienteService.Eliminar(cliente_id);
+                    MessageBox.Show(mensaje, "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite la cedula de la persona a modificar y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void butBuscar_Click(object sender, EventArgs e)
+        {
+            BusquedaClienteRespuesta respuesta = new BusquedaClienteRespuesta();
+            string cliente_id = txtIdentificacion.Text;
+            if (cliente_id != "")
+            {
+                respuesta = clienteService.BuscarxIdentificacion(cliente_id);
+
+                if (respuesta.cliente != null)
+                {
+                    txtPrimerNombreText.Text = respuesta.cliente.PrimerNombre;
+                    txtSegundoNombreText.Text = respuesta.cliente.SegundoNombre;
+                    txtPrimerApellidoText.Text = respuesta.cliente.PrimerApellido;
+                    txtSegundoApellido.Text = respuesta.cliente.SegundoApellido;
+                    txtCiudad.Text = respuesta.cliente.Ciudad;
+                    txtBarrio.Text = respuesta.cliente.Barrio;
+                    txtCasa.Text = respuesta.cliente.N_Casa;
+                    txtComuna.Text = respuesta.cliente.Comuna;
+                    txtTelefono.Text = respuesta.cliente.Telefono;
+                    txtCorreo.Text = respuesta.cliente.Email;
+                    comboTipo.Text = "Cliente";
+                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void butModificar_Click(object sender, EventArgs e)
+        {
+            var respuesta = MessageBox.Show("Está seguro de Modificar la información", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (respuesta == DialogResult.Yes)
+            {
+                Cliente cliente = MapearCliente();
+                string mensaje = clienteService.Modificar(cliente);
+                MessageBox.Show(mensaje, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
         }
     }
 }

@@ -82,7 +82,7 @@
             this.dtgConsultarClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgConsultarClientes.Location = new System.Drawing.Point(54, 163);
             this.dtgConsultarClientes.Name = "dtgConsultarClientes";
-            this.dtgConsultarClientes.Size = new System.Drawing.Size(667, 164);
+            this.dtgConsultarClientes.Size = new System.Drawing.Size(667, 329);
             this.dtgConsultarClientes.TabIndex = 19;
             // 
             // FrmConsultarClientes
@@ -90,7 +90,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(795, 431);
+            this.ClientSize = new System.Drawing.Size(795, 512);
             this.Controls.Add(this.dtgConsultarClientes);
             this.Controls.Add(this.BtnConsultarClientes);
             this.Controls.Add(this.button5);
