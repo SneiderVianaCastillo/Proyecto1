@@ -63,12 +63,11 @@ namespace DAL
             persona.SegundoNombre = dataReader.GetString(2);
             persona.PrimerApellido = dataReader.GetString(3);
             persona.SegundoApellido = dataReader.GetString(4);
-            persona.PrimerNombre = dataReader.GetString(5);
-            persona.Barrio = dataReader.GetString(6);
-            persona.Ciudad = dataReader.GetString(7);
-            persona.Barrio = dataReader.GetString(8);
-            persona.N_Casa = dataReader.GetString(9);
-            persona.Telefono = dataReader.GetString(10);
+            persona.Barrio = dataReader.GetString(5);
+            persona.Ciudad = dataReader.GetString(6);
+            persona.Barrio = dataReader.GetString(7);
+            persona.N_Casa = dataReader.GetString(8);
+            persona.Telefono = dataReader.GetString(9);
             return persona;
 
         }
