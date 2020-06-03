@@ -85,7 +85,7 @@
             this.butBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butBuscar.ForeColor = System.Drawing.Color.LightGray;
             this.butBuscar.Image = ((System.Drawing.Image)(resources.GetObject("butBuscar.Image")));
-            this.butBuscar.Location = new System.Drawing.Point(331, 67);
+            this.butBuscar.Location = new System.Drawing.Point(340, 115);
             this.butBuscar.Name = "butBuscar";
             this.butBuscar.Size = new System.Drawing.Size(41, 37);
             this.butBuscar.TabIndex = 3;
@@ -159,7 +159,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.Control;
-            this.label2.Location = new System.Drawing.Point(60, 82);
+            this.label2.Location = new System.Drawing.Point(69, 130);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 8;
@@ -167,7 +167,7 @@
             // 
             // txtIdentificacion
             // 
-            this.txtIdentificacion.Location = new System.Drawing.Point(147, 82);
+            this.txtIdentificacion.Location = new System.Drawing.Point(156, 130);
             this.txtIdentificacion.Name = "txtIdentificacion";
             this.txtIdentificacion.Size = new System.Drawing.Size(178, 20);
             this.txtIdentificacion.TabIndex = 9;
@@ -347,7 +347,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.SystemColors.Control;
-            this.label13.Location = new System.Drawing.Point(105, 136);
+            this.label13.Location = new System.Drawing.Point(111, 86);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(28, 13);
             this.label13.TabIndex = 30;
@@ -360,7 +360,7 @@
             "...",
             "Cliente",
             "Trabajador"});
-            this.comboTipo.Location = new System.Drawing.Point(147, 128);
+            this.comboTipo.Location = new System.Drawing.Point(153, 78);
             this.comboTipo.Name = "comboTipo";
             this.comboTipo.Size = new System.Drawing.Size(139, 21);
             this.comboTipo.TabIndex = 31;

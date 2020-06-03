@@ -27,7 +27,7 @@ namespace Infraestructura
             email = new MailMessage();
             email.To.Add(cliente.Email);
             email.From = new MailAddress("quickbillin2019@gmail.com");
-            email.Subject = " Registro de Usuario "
+            email.Subject = " Registro de Usuario QuickBilling "
 
    + DateTime.Now.ToString("dd/MMM/yyy hh:mm:ss");
 

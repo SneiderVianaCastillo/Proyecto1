@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using BLL;
 using Entity;
 using static BLL.ClienteService;
+using static BLL.TrabajadorService;
 
 namespace PlayerUI
 {
@@ -17,9 +18,13 @@ namespace PlayerUI
     {
         ClienteService clienteService;
         Cliente cliente;
+        TrabajadorService trabajadorService;
+        Trabajador trabajador;
         public FrmRegistrarCliente()
         {
             InitializeComponent();
+            trabajadorService = new TrabajadorService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
+
             clienteService = new ClienteService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
         }
 
@@ -54,15 +59,47 @@ namespace PlayerUI
             return cliente;
 
         }
+        private Trabajador MapearTrabajador()
+        {
+            trabajador = new Trabajador();
+            trabajador.Trabajador_Id = txtIdentificacion.Text;
+            trabajador.PrimerNombre = txtPrimerNombreText.Text;
+            trabajador.SegundoNombre = txtSegundoNombreText.Text;
+            trabajador.PrimerApellido = txtPrimerApellidoText.Text;
+            trabajador.SegundoApellido = txtSegundoApellido.Text;
+            trabajador.Telefono = txtTelefono.Text;
+            trabajador.Cargo = comboCargo.Text;
+            trabajador.Ciudad = txtCiudad.Text;
+            trabajador.Barrio = txtBarrio.Text;
+            trabajador.Comuna = txtComuna.Text;
+            trabajador.N_Casa = txtCasa.Text;
+            trabajador.Email = txtCorreo.Text;
+            return trabajador;
+
+        }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = MapearCliente();
-            string mensaje = clienteService.Guardar(cliente);
-            MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            Limpiar();
+            string tipo = comboTipo.Text;
+            if (tipo == "Cliente")
+            {
+                Cliente cliente = MapearCliente();
+                string mensaje = clienteService.Guardar(cliente);
+                MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                Limpiar();
+            }
+            else
+            {
+                Trabajador trabajador = MapearTrabajador();
+                string mensaje2 = trabajadorService.Guardar(trabajador);
+                MessageBox.Show(mensaje2, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                //Limpiar();
+            }
+ 
         }
         public void Limpiar()
         {
+            comboTipo.Text = "...";
+            comboCargo.Text = "...";
              txtIdentificacion.Text ="";
             txtPrimerNombreText.Text = "";
             txtSegundoNombreText.Text = "";
@@ -100,50 +137,107 @@ namespace PlayerUI
 
         private void butBuscar_Click(object sender, EventArgs e)
         {
-            BusquedaClienteRespuesta respuesta = new BusquedaClienteRespuesta();
-            string cliente_id = txtIdentificacion.Text;
-            if (cliente_id != "")
+            string tipo = comboTipo.Text;
+            if (tipo == "Cliente")
             {
-                respuesta = clienteService.BuscarxIdentificacion(cliente_id);
-
-                if (respuesta.cliente != null)
+                BusquedaClienteRespuesta respuesta = new BusquedaClienteRespuesta();
+                string cliente_id = txtIdentificacion.Text;
+                if (cliente_id != "")
                 {
-                    txtPrimerNombreText.Text = respuesta.cliente.PrimerNombre;
-                    txtSegundoNombreText.Text = respuesta.cliente.SegundoNombre;
-                    txtPrimerApellidoText.Text = respuesta.cliente.PrimerApellido;
-                    txtSegundoApellido.Text = respuesta.cliente.SegundoApellido;
-                    txtCiudad.Text = respuesta.cliente.Ciudad;
-                    txtBarrio.Text = respuesta.cliente.Barrio;
-                    txtCasa.Text = respuesta.cliente.N_Casa;
-                    txtComuna.Text = respuesta.cliente.Comuna;
-                    txtTelefono.Text = respuesta.cliente.Telefono;
-                    txtCorreo.Text = respuesta.cliente.Email;
-                    comboTipo.Text = "Cliente";
-                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    respuesta = clienteService.BuscarxIdentificacion(cliente_id);
+
+                    if (respuesta.cliente != null)
+                    {
+                        txtPrimerNombreText.Text = respuesta.cliente.PrimerNombre;
+                        txtSegundoNombreText.Text = respuesta.cliente.SegundoNombre;
+                        txtPrimerApellidoText.Text = respuesta.cliente.PrimerApellido;
+                        txtSegundoApellido.Text = respuesta.cliente.SegundoApellido;
+                        txtCiudad.Text = respuesta.cliente.Ciudad;
+                        txtBarrio.Text = respuesta.cliente.Barrio;
+                        txtCasa.Text = respuesta.cliente.N_Casa;
+                        txtComuna.Text = respuesta.cliente.Comuna;
+                        txtTelefono.Text = respuesta.cliente.Telefono;
+                        txtCorreo.Text = respuesta.cliente.Email;
+                        comboTipo.Text = "Cliente";
+                        MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                 }
                 else
                 {
-                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
             }
             else
             {
-                MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BusquedaTrabajadorRespuesta respuesta = new BusquedaTrabajadorRespuesta();
+                string trabajador_id = txtIdentificacion.Text;
+                if (trabajador_id != "")
+                {
+                    respuesta = trabajadorService.BuscarxIdentificacionTrab(trabajador_id);
+
+                    if (respuesta.trabajador != null)
+                    {
+                        txtPrimerNombreText.Text = respuesta.trabajador.PrimerNombre;
+                        txtSegundoNombreText.Text = respuesta.trabajador.SegundoNombre;
+                        txtPrimerApellidoText.Text = respuesta.trabajador.PrimerApellido;
+                        txtSegundoApellido.Text = respuesta.trabajador.SegundoApellido;
+                        txtTelefono.Text = respuesta.trabajador.Telefono;
+                        comboCargo.Text = respuesta.trabajador.Cargo;
+                        txtCiudad.Text = respuesta.trabajador.Ciudad;
+                        txtBarrio.Text = respuesta.trabajador.Barrio;
+                        txtCasa.Text = respuesta.trabajador.N_Casa;
+                        txtComuna.Text = respuesta.trabajador.Comuna;
+                        txtCorreo.Text = respuesta.trabajador.Email;
+                        comboTipo.Text = "Trabajador";
+                        MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
+           
 
         }
 
         private void butModificar_Click(object sender, EventArgs e)
         {
-            var respuesta = MessageBox.Show("Está seguro de Modificar la información", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (respuesta == DialogResult.Yes)
+            string tipo = comboTipo.Text;
+            if (tipo == "Trabajador")
             {
-                Cliente cliente = MapearCliente();
-                string mensaje = clienteService.Modificar(cliente);
-                MessageBox.Show(mensaje, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var respuesta2 = MessageBox.Show("Está seguro de Modificar el Trabajador", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta2 == DialogResult.Yes)
+                {
+                    Trabajador trabajador = MapearTrabajador();
+                    string mensaje2 = trabajadorService.Modificar(trabajador);
+                    MessageBox.Show(mensaje2, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                }
             }
+            else
+            {
+                var respuesta = MessageBox.Show("Está seguro de Modificar el Cliente ", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    Cliente cliente = MapearCliente();
+                    string mensaje = clienteService.Modificar(cliente);
+                    MessageBox.Show(mensaje, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+            }
+           
+  
         }
     }
 }

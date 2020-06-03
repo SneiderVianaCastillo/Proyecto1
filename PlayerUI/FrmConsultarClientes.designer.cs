@@ -32,6 +32,8 @@
             this.button5 = new System.Windows.Forms.Button();
             this.BtnConsultarClientes = new System.Windows.Forms.Button();
             this.dtgConsultarClientes = new System.Windows.Forms.DataGridView();
+            this.comboTipo = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,7 +71,7 @@
             this.BtnConsultarClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnConsultarClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnConsultarClientes.ForeColor = System.Drawing.Color.LightGray;
-            this.BtnConsultarClientes.Location = new System.Drawing.Point(54, 95);
+            this.BtnConsultarClientes.Location = new System.Drawing.Point(278, 90);
             this.BtnConsultarClientes.Name = "BtnConsultarClientes";
             this.BtnConsultarClientes.Size = new System.Drawing.Size(150, 40);
             this.BtnConsultarClientes.TabIndex = 18;
@@ -85,12 +87,36 @@
             this.dtgConsultarClientes.Size = new System.Drawing.Size(667, 329);
             this.dtgConsultarClientes.TabIndex = 19;
             // 
+            // comboTipo
+            // 
+            this.comboTipo.FormattingEnabled = true;
+            this.comboTipo.Items.AddRange(new object[] {
+            "...",
+            "Cliente",
+            "Trabajador"});
+            this.comboTipo.Location = new System.Drawing.Point(113, 101);
+            this.comboTipo.Name = "comboTipo";
+            this.comboTipo.Size = new System.Drawing.Size(139, 21);
+            this.comboTipo.TabIndex = 33;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ForeColor = System.Drawing.SystemColors.Control;
+            this.label13.Location = new System.Drawing.Point(71, 109);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(28, 13);
+            this.label13.TabIndex = 32;
+            this.label13.Text = "Tipo";
+            // 
             // FrmConsultarClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(795, 512);
+            this.Controls.Add(this.comboTipo);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.dtgConsultarClientes);
             this.Controls.Add(this.BtnConsultarClientes);
             this.Controls.Add(this.button5);
@@ -108,5 +134,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button BtnConsultarClientes;
         private System.Windows.Forms.DataGridView dtgConsultarClientes;
+        private System.Windows.Forms.ComboBox comboTipo;
+        private System.Windows.Forms.Label label13;
     }
 }
