@@ -54,6 +54,8 @@
             this.label10 = new System.Windows.Forms.Label();
             this.ComunaText = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.txtCorreo = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -62,7 +64,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
-            this.label1.Location = new System.Drawing.Point(272, 30);
+            this.label1.Location = new System.Drawing.Point(288, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 25);
             this.label1.TabIndex = 0;
@@ -77,7 +79,7 @@
             this.butBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butBuscar.ForeColor = System.Drawing.Color.LightGray;
-            this.butBuscar.Location = new System.Drawing.Point(474, 229);
+            this.butBuscar.Location = new System.Drawing.Point(506, 229);
             this.butBuscar.Name = "butBuscar";
             this.butBuscar.Size = new System.Drawing.Size(150, 40);
             this.butBuscar.TabIndex = 3;
@@ -92,7 +94,7 @@
             this.butEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butEliminar.ForeColor = System.Drawing.Color.LightGray;
-            this.butEliminar.Location = new System.Drawing.Point(474, 183);
+            this.butEliminar.Location = new System.Drawing.Point(506, 183);
             this.butEliminar.Name = "butEliminar";
             this.butEliminar.Size = new System.Drawing.Size(150, 40);
             this.butEliminar.TabIndex = 4;
@@ -107,7 +109,7 @@
             this.butModificar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.butModificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.butModificar.ForeColor = System.Drawing.Color.LightGray;
-            this.butModificar.Location = new System.Drawing.Point(474, 137);
+            this.butModificar.Location = new System.Drawing.Point(506, 137);
             this.butModificar.Name = "butModificar";
             this.butModificar.Size = new System.Drawing.Size(150, 40);
             this.butModificar.TabIndex = 5;
@@ -122,7 +124,7 @@
             this.BtnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnGuardar.ForeColor = System.Drawing.Color.LightGray;
-            this.BtnGuardar.Location = new System.Drawing.Point(474, 91);
+            this.BtnGuardar.Location = new System.Drawing.Point(506, 91);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(150, 40);
             this.BtnGuardar.TabIndex = 6;
@@ -316,12 +318,31 @@
             this.label11.TabIndex = 26;
             this.label11.Text = "Comuna";
             // 
+            // txtCorreo
+            // 
+            this.txtCorreo.Location = new System.Drawing.Point(158, 382);
+            this.txtCorreo.Name = "txtCorreo";
+            this.txtCorreo.Size = new System.Drawing.Size(154, 20);
+            this.txtCorreo.TabIndex = 29;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.Control;
+            this.label12.Location = new System.Drawing.Point(89, 385);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(38, 13);
+            this.label12.TabIndex = 28;
+            this.label12.Text = "Correo";
+            // 
             // FrmRegistrarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(636, 384);
+            this.ClientSize = new System.Drawing.Size(668, 473);
+            this.Controls.Add(this.txtCorreo);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.ComunaText);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.BarrioText);
@@ -383,5 +404,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox ComunaText;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtCorreo;
+        private System.Windows.Forms.Label label12;
     }
 }

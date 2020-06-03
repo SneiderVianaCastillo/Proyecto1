@@ -6,24 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entity;
+using System.Data;
 
 namespace DAL
 {
     public class ClienteRepository
     {
         private readonly OracleConnection _connection;
-        private readonly List<Cliente> _personas = new List<Cliente>();
+        private readonly List<Cliente> clientes = new List<Cliente>();
         public ClienteRepository(ConnectionManager connection)
         {
             _connection = connection._conexion;
         }
         //
-        public int Guardar(Cliente cliente)
+        public void Guardar(Cliente cliente)
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"Insert Into Cliente (Cliente_id,PrimerNombre,SegundoNombre, PrimerApellido, SegundoApellido,Barrio,Ciudad,Comuna,N_Casa,Telefono) 
-                                      values (:Cliente_id,:PrimerNombre,:SegundoNombre, :PrimerApellido, :SegundoApellido,:Barrio,:Ciudad,:Comuna,:N_Casa,:Telefono)";
+                command.CommandText = "PKG_INSERTAR.INSERTAR_CLIENTE";
+                command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Cliente_id;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
                 command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
@@ -35,8 +36,8 @@ namespace DAL
                 command.Parameters.Add("N_Casa", OracleDbType.Varchar2).Value = cliente.N_Casa;
                 command.Parameters.Add("Telefono", OracleDbType.Varchar2).Value = cliente.Telefono;
 
-                var filas = command.ExecuteNonQuery();
-                return filas;
+                command.ExecuteNonQuery();
+                
             }
         }
 
@@ -71,7 +72,27 @@ namespace DAL
             return persona;
 
         }
-        public List<Cliente> Consultar()
+        public IList<Cliente> Consultar()
+        {
+            using (var comando = _connection.CreateCommand())
+            {
+                comando.CommandText = "PKG_CONSULTAR.CONSULTAR_CLIENTE";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.Add("CURSORMEMORIA", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
+                using (var reader = comando.ExecuteReader())
+                {
+                    clientes.Clear();
+                    while (reader.Read())
+                    {
+                        Cliente cliente = new Cliente();
+                        cliente = DataReaderMapearToClientes(reader);
+                        clientes.Add(cliente);
+                    }
+                }
+            }
+            return clientes;
+        }
+        public List<Cliente> Consultar2()
         {
             OracleDataReader dataReader;
             List<Cliente> clientes = new List<Cliente>();
@@ -90,5 +111,6 @@ namespace DAL
             }
             return clientes;
         }
+
     }
-}
+    }

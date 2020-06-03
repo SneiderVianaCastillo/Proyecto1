@@ -18,5 +18,6 @@ namespace Entity
         public string Comuna { get; set; }
         public string N_Casa { get; set; }
         public string Telefono { get; set; }
+        public string Email { get; set; }
     }
 }

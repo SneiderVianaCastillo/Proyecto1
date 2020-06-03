@@ -19,7 +19,7 @@ namespace PlayerUI
         public FrmRegistrarCliente()
         {
             InitializeComponent();
-            clienteService = new ClienteService(ConfigConnection.connectionString);
+            clienteService = new ClienteService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -49,6 +49,7 @@ namespace PlayerUI
             cliente.Comuna =ComunaText.Text;
             cliente.N_Casa = textDireccion.Text;
             cliente.Telefono = textTelefono.Text;
+            cliente.Email = txtCorreo.Text;
             return cliente;
 
         }
@@ -57,6 +58,20 @@ namespace PlayerUI
             Cliente cliente = MapearCliente();
             string mensaje = clienteService.Guardar(cliente);
             MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            Limpiar();
+        }
+        public void Limpiar()
+        {
+             texIdentificacion.Text ="";
+            PrimerNombreText.Text = "";
+            SegundoNombreText.Text = "";
+            PrimerApellidoText.Text = "";
+           SegundoApellidotext.Text = "";
+            textCiudad.Text = "";
+            BarrioText.Text = "";
+           ComunaText.Text = "";
+            textDireccion.Text = "";
+            textTelefono.Text = "";
         }
     }
 }

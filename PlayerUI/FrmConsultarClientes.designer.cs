@@ -75,13 +75,14 @@
             this.BtnConsultarClientes.TabIndex = 18;
             this.BtnConsultarClientes.Text = "CONSULTAR";
             this.BtnConsultarClientes.UseVisualStyleBackColor = false;
+            this.BtnConsultarClientes.Click += new System.EventHandler(this.BtnConsultarClientes_Click);
             // 
             // dtgConsultarClientes
             // 
             this.dtgConsultarClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgConsultarClientes.Location = new System.Drawing.Point(54, 163);
             this.dtgConsultarClientes.Name = "dtgConsultarClientes";
-            this.dtgConsultarClientes.Size = new System.Drawing.Size(618, 150);
+            this.dtgConsultarClientes.Size = new System.Drawing.Size(667, 164);
             this.dtgConsultarClientes.TabIndex = 19;
             // 
             // FrmConsultarClientes
