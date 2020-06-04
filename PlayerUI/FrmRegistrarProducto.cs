@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BLL;
 using Entity;
+using BLL;
+using Infraestructura;
+using static BLL.ProductosService;
 using static BLL.ProveedorService;
 
 namespace PlayerUI
@@ -17,10 +19,14 @@ namespace PlayerUI
     {
         ProveedorService proveedorService;
         Proveedor proveedor ;
+        PDF pdf;
+        ProductosService productosService;
+        Productos  productos;
         public FrmRegistrarProducto()
         {
             InitializeComponent();
             proveedorService = new ProveedorService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
+            productosService = new ProductosService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
 
         }
 
@@ -121,6 +127,49 @@ namespace PlayerUI
             {
                 MessageBox.Show("Por favor digite el rut de la empresa a modificar y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void label16_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private Productos MapearProductos()
+        {
+            productos = new Productos();
+            productos.Productos_id = txtCodigoProducto.Text;
+            productos.Nombre = txtNombreProducto.Text;
+            productos.Descripcion= txtDescripcion.Text;
+            productos.Precio_venta= Convert.ToDecimal( txtPVenta.Text);
+            productos.Precio_costo = Convert.ToDecimal(txtPCompra.Text);
+            productos.Iva = Convert.ToInt32(txtIva.Text);
+            productos.Tipo = comboTipo.Text;
+            productos.Modelo = txtModelo.Text;
+            productos.Cantidad = Convert.ToInt32(txtCantidad.Text);
+            return productos;
+
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Productos productos = MapearProductos();
+            string mensaje = productosService.Guardar(productos);
+            MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        }
+
+        private void buttonPdf_Click(object sender, EventArgs e)
+        {
+            ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
+            PDF pdf = new PDF();
+            IList<Productos> productos = new List<Productos>();
+            respuesta = productosService.Consultar();
+            string ruta = @"QuickBilling";
+            pdf.GuardarPdf(respuesta.productos, ruta);
+            MessageBox.Show("Documento pdf generado correctamente");
         }
     }
 }

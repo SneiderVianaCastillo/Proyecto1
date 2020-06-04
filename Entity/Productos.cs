@@ -8,16 +8,18 @@ namespace Entity
 {
     public class Productos
     {
-        public int Codigo { get; set; }
+        public string Productos_id { get; set; }
+        public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public int Existencia { get; set; }
-        public int PrecioVenta { get; set; }
-        public int PrecioCosto { get; set; }
+        public decimal Precio_venta { get; set; }
+        public decimal Precio_costo { get; set; }
         public string Tipo { get; set; }
-      
+        public string Modelo { get; set; }
         public decimal Iva { get; set; }
+        public int Cantidad { get; set; }
 
-      public void CalcularExistencia(int cantidad)
+        public void CalcularExistencia(int cantidad)
         {
             Existencia = Existencia + cantidad;
         }

@@ -12,7 +12,7 @@ namespace Entity
         public int CodigoProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal Iva { get; set; }
-        public int PrecioVenta { get; set; }
+        public decimal Precio_venta { get; set; }
         public string Descripcion { get; set; }
         public Productos productos { get; set; }
         public decimal PrecioUnitario { get; set; }
@@ -21,7 +21,7 @@ namespace Entity
 
         public void CalcularSubTotal()
         {
-            Subtotal = productos.PrecioVenta  * Cantidad;
+            Subtotal = productos.Precio_venta  * Cantidad;
         }
 
         public void CalcularIva()

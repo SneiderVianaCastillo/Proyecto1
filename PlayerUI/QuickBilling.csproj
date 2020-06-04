@@ -146,6 +146,10 @@
       <Project>{5a5ba495-2135-4da0-91d7-8651a3b990ed}</Project>
       <Name>Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infraestructura\Infraestructura.csproj">
+      <Project>{10676e9d-3458-42cf-8775-e77c894bf751}</Project>
+      <Name>Infraestructura</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
