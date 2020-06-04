@@ -48,6 +48,7 @@
             this.BtnConsultarClientes.TabIndex = 19;
             this.BtnConsultarClientes.Text = "CONSULTAR";
             this.BtnConsultarClientes.UseVisualStyleBackColor = false;
+            this.BtnConsultarClientes.Click += new System.EventHandler(this.BtnConsultarClientes_Click);
             // 
             // label1
             // 

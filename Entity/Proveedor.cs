@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-    class Prveedor
+    public class Proveedor
     {
         public string Rut { get; set; }
         public string NombreComercial { get; set; }
-        public int Telefono { get; set; }
+        public string Telefono { get; set; }
     }
 }
