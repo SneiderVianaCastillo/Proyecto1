@@ -165,5 +165,27 @@ namespace BLL
             finally { conexion.Close(); }
 
         }
+
+        public string GenerarClientePdf(List<Cliente> clientes, string filename)
+        {
+            PDF documentoClientePdf = new PDF();
+            try
+            {
+                documentoClientePdf.GuardarClientePdf(clientes, filename);
+                return "Se genró el Documento satisfactoriamente";
+            }
+            catch (Exception e)
+            {
+
+                return "Error al crear docuemnto" + e.Message;
+            }
+        }
+
+        public class Respuesta
+        {
+            public IList<Cliente>   clientes { get; set; }
+            public string Mensaje { get; set; }
+            public bool IsError { get; set; }
+        }
     }
 }

@@ -30,9 +30,9 @@
         {
             this.BtnConsultarClientes = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.DtgConsultarProducto = new System.Windows.Forms.DataGridView();
+            this.DtgConsultarProductos = new System.Windows.Forms.DataGridView();
             this.button5 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DtgConsultarProducto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DtgConsultarProductos)).BeginInit();
             this.SuspendLayout();
             // 
             // BtnConsultarClientes
@@ -62,13 +62,13 @@
             this.label1.TabIndex = 20;
             this.label1.Text = "CONSULTAR PRODUCTO";
             // 
-            // DtgConsultarProducto
+            // DtgConsultarProductos
             // 
-            this.DtgConsultarProducto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DtgConsultarProducto.Location = new System.Drawing.Point(57, 146);
-            this.DtgConsultarProducto.Name = "DtgConsultarProducto";
-            this.DtgConsultarProducto.Size = new System.Drawing.Size(658, 150);
-            this.DtgConsultarProducto.TabIndex = 21;
+            this.DtgConsultarProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DtgConsultarProductos.Location = new System.Drawing.Point(57, 146);
+            this.DtgConsultarProductos.Name = "DtgConsultarProductos";
+            this.DtgConsultarProductos.Size = new System.Drawing.Size(658, 150);
+            this.DtgConsultarProductos.TabIndex = 21;
             // 
             // button5
             // 
@@ -92,12 +92,12 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(792, 366);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.DtgConsultarProducto);
+            this.Controls.Add(this.DtgConsultarProductos);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BtnConsultarClientes);
             this.Name = "FrmConsultarProducto";
             this.Text = "FrmConsultarProducto";
-            ((System.ComponentModel.ISupportInitialize)(this.DtgConsultarProducto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DtgConsultarProductos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,7 +107,7 @@
 
         private System.Windows.Forms.Button BtnConsultarClientes;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView DtgConsultarProducto;
+        private System.Windows.Forms.DataGridView DtgConsultarProductos;
         private System.Windows.Forms.Button button5;
     }
 }

@@ -163,13 +163,44 @@ namespace PlayerUI
 
         private void buttonPdf_Click(object sender, EventArgs e)
         {
+            //SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.Title = "Guardar Informe";
+            //saveFileDialog.InitialDirectory = @"c:/document";
+            //saveFileDialog.DefaultExt = "pdf";
+            //string filename = "";
+            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    filename = saveFileDialog.FileName;
+            //    if (filename != "" && productos.Count > 0)
+            //    {
+            //        string mensaje = productosService.GenerarPdf(productos, filename);
+
+            //        MessageBox.Show(mensaje, "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("No se especifico una ruta o No hay datos para generar el reporte", "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
+            //ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
+            //PDF pdf = new PDF();
+            //IList<Productos> productos = new List<Productos>();
+            //respuesta = productosService.Consultar();
+            //string ruta = @"QuickBilling";
+            //pdf.GuardarPdf(respuesta.productos, ruta);
+            //MessageBox.Show("Documento pdf generado correctamente");
+        }
+
+        private void buttonBuscarPro_Click(object sender, EventArgs e)
+        {
             ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
-            PDF pdf = new PDF();
-            IList<Productos> productos = new List<Productos>();
+
+            dtgConsultarProductosPdf.DataSource = null;
             respuesta = productosService.Consultar();
-            string ruta = @"QuickBilling";
-            pdf.GuardarPdf(respuesta.productos, ruta);
-            MessageBox.Show("Documento pdf generado correctamente");
+            dtgConsultarProductosPdf.DataSource = respuesta.productos;
+            dtgConsultarProductosPdf.Refresh();
+            MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

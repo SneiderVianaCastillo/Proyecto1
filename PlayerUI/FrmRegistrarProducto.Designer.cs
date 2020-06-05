@@ -256,6 +256,7 @@
             this.buttonBuscarPro.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonBuscarPro.UseVisualStyleBackColor = false;
             this.buttonBuscarPro.UseWaitCursor = true;
+            this.buttonBuscarPro.Click += new System.EventHandler(this.buttonBuscarPro_Click);
             // 
             // panel1
             // 

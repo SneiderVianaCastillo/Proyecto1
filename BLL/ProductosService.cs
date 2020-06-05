@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using Entity;
-using System.Configuration;
 using Infraestructura;
+using System.Configuration;
 using System.Net.Mail;
 
 namespace BLL
@@ -87,6 +87,7 @@ namespace BLL
                 conexion.Open();
                 respuesta.productos = repositorio.Consultar();
                 conexion.Close();
+                respuesta.Error = false;
                 if (respuesta.productos.Count > 0)
                 {
                     respuesta.Mensaje = "Se consultan los Datos";
@@ -106,6 +107,21 @@ namespace BLL
             }
             finally { conexion.Close(); }
 
+        }
+
+        public string GenerarPdf(List<Productos> productos, string filename)
+        {
+            PDF documentoPdf = new PDF();
+            try
+            {
+                documentoPdf.GuardarPdf(productos, filename);
+                return "Se genró el Documento satisfactoriamente";
+            }
+            catch (Exception e)
+            {
+
+                return "Error al crear docuemnto" + e.Message;
+            }
         }
         public class Respuesta
         {

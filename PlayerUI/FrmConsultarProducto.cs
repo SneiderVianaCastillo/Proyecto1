@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BLL.ProductosService;
 using static BLL.ProveedorService;
 
 namespace PlayerUI
@@ -15,9 +16,12 @@ namespace PlayerUI
     public partial class FrmConsultarProducto : Form
     {
         ProveedorService proveedorService;
+        ProductosService productosService;
         public FrmConsultarProducto()
         {
             InitializeComponent();
+            productosService = new ProductosService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
+
             proveedorService = new ProveedorService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
 
         }
@@ -29,12 +33,11 @@ namespace PlayerUI
 
         private void BtnConsultarClientes_Click(object sender, EventArgs e)
         {
-            ConsultaProveedorRespuesta respuesta = new ConsultaProveedorRespuesta();
-
-            DtgConsultarProducto.DataSource = null;
-            respuesta = proveedorService.Consultar();
-            DtgConsultarProducto.DataSource = respuesta.proveedors;
-            DtgConsultarProducto.Refresh();
+            ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
+            DtgConsultarProductos.DataSource = null;
+            respuesta = productosService.Consultar();
+            DtgConsultarProductos.DataSource = respuesta.productos;
+            DtgConsultarProductos.Refresh();
             MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

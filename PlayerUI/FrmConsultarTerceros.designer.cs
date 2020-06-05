@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmConsultarTerceros));
             this.label1 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.BtnConsultarClientes = new System.Windows.Forms.Button();
             this.dtgConsultarTerceros = new System.Windows.Forms.DataGridView();
             this.comboTipo = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.buttonPdf = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarTerceros)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,19 +111,39 @@
             this.label13.TabIndex = 32;
             this.label13.Text = "Tipo";
             // 
-            // FrmConsultarClientes
+            // buttonPdf
+            // 
+            this.buttonPdf.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.buttonPdf.FlatAppearance.BorderSize = 0;
+            this.buttonPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPdf.ForeColor = System.Drawing.Color.LightGray;
+            this.buttonPdf.Image = ((System.Drawing.Image)(resources.GetObject("buttonPdf.Image")));
+            this.buttonPdf.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.buttonPdf.Location = new System.Drawing.Point(462, 72);
+            this.buttonPdf.Name = "buttonPdf";
+            this.buttonPdf.Size = new System.Drawing.Size(61, 58);
+            this.buttonPdf.TabIndex = 64;
+            this.buttonPdf.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonPdf.UseVisualStyleBackColor = false;
+            this.buttonPdf.UseWaitCursor = true;
+            this.buttonPdf.Click += new System.EventHandler(this.buttonPdf_Click);
+            // 
+            // FrmConsultarTerceros
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(795, 512);
+            this.Controls.Add(this.buttonPdf);
             this.Controls.Add(this.comboTipo);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.dtgConsultarTerceros);
             this.Controls.Add(this.BtnConsultarClientes);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.label1);
-            this.Name = "FrmConsultarClientes";
+            this.Name = "FrmConsultarTerceros";
             this.Text = "Form3";
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarTerceros)).EndInit();
             this.ResumeLayout(false);
@@ -136,5 +158,6 @@
         private System.Windows.Forms.DataGridView dtgConsultarTerceros;
         private System.Windows.Forms.ComboBox comboTipo;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Button buttonPdf;
     }
 }
