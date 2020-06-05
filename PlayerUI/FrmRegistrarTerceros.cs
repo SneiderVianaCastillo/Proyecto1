@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BLL;
 using Entity;
+using Infraestructura;
 using static BLL.ClienteService;
 using static BLL.TrabajadorService;
 
@@ -20,6 +21,7 @@ namespace PlayerUI
         Cliente cliente;
         TrabajadorService trabajadorService;
         Trabajador trabajador;
+        Email e = new Email();
         public FrmRegistrarTerceros()
         {
             InitializeComponent();
@@ -79,6 +81,7 @@ namespace PlayerUI
         }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
+           
             string tipo = comboTipo.Text;
             if (tipo == "Cliente")
             {

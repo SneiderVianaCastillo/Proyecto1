@@ -21,7 +21,14 @@ namespace BLL
             repositorio = new ClienteRepository(conexion);
         }
 
+        public string EnviarPdf(Cliente cliente, string ruta)
+        {
+            Email email = new Email();
+            string mensajeEmail = string.Empty;
 
+            return $"Se guardaron los datos de {cliente.PrimerNombre} datos satisfactoriamente" + mensajeEmail;
+
+        }
 
         public string Guardar(Cliente cliente)
         {
