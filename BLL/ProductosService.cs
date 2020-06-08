@@ -57,7 +57,7 @@ namespace BLL
                 conexion.Open();
                 respuesta.productos = repositorio.BuscarCodigo(rut);
                 conexion.Close();
-                respuesta.Mensaje = (respuesta.productos != null) ? "Se encontró el Produco" : "El Proveedor buscado no existe";
+                respuesta.Mensaje = (respuesta.productos != null) ? "Se encontró el Produco" : "El Producto buscado no existe";
                 respuesta.Error = false;
                 return respuesta;
             }
@@ -128,6 +128,58 @@ namespace BLL
             public IList<Productos> Productos { get; set; }
             public string Mensaje { get; set; }
             public bool IsError { get; set; }
+        }
+
+        public string ModificarTodos(Productos productosNuevo)
+        {
+            try
+            {
+                conexion.Open();
+                var proveedorVieja = repositorio.BuscarCodigo(productosNuevo.Productos_id);
+                if (proveedorVieja != null)
+                {
+                    repositorio.ModificarTodos(productosNuevo);
+                    conexion.Close();
+                    return ($"El Proveedor {productosNuevo.Nombre} se ha modificado satisfactoriamente.");
+                }
+                else
+                {
+                    return ($"Lo sentimos, {productosNuevo.Productos_id} no se encuentra registrada.");
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error de la Aplicación: {e.Message}";
+            }
+            finally { conexion.Close(); }
+
+        }
+
+        public string Eliminar(string rut)
+        {
+            try
+            {
+                conexion.Open();
+                var productos = repositorio.BuscarCodigo(rut);
+                if (productos != null)
+                {
+                    repositorio.Eliminar(productos);
+                    conexion.Close();
+                    return ($"El Proveedor {productos.Nombre} se ha eliminado satisfactoriamente.");
+                }
+                else
+                {
+                    return ($"Lo sentimos, {rut} no se encuentra registrada.");
+                }
+            }
+            catch (Exception e)
+            {
+
+                return $"Error de la Aplicación: {e.Message}";
+            }
+            finally { conexion.Close(); }
+
         }
     }
 }

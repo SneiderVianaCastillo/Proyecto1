@@ -33,6 +33,7 @@ namespace DAL
                 command.Parameters.Add("tipo", OracleDbType.Varchar2).Value = productos.Tipo;
                 command.Parameters.Add("modelo", OracleDbType.Varchar2).Value = productos.Modelo;
                 command.Parameters.Add("cantidad", OracleDbType.Varchar2).Value = productos.Cantidad;
+                command.Parameters.Add("Existencia", OracleDbType.Varchar2).Value = productos.Existencia;
                 command.ExecuteNonQuery();
 
             }
@@ -45,13 +46,13 @@ namespace DAL
             productos.Productos_id = dataReader.GetString(0);
             productos.Nombre = dataReader.GetString(1);
             productos.Descripcion = dataReader.GetString(2);
-            productos.Precio_venta = Convert.ToDecimal(dataReader.GetString(3));
-            productos.Precio_costo = Convert.ToDecimal(dataReader.GetString(4));
-            productos.Iva = Convert.ToDecimal(dataReader.GetString(5));
+            productos.Precio_venta = dataReader.GetDecimal(3);
+            productos.Precio_costo = dataReader.GetDecimal(4);
+            productos.Iva = dataReader.GetDecimal(5);
             productos.Tipo = dataReader.GetString(6);
             productos.Modelo = dataReader.GetString(7);
-            productos.Cantidad = Convert.ToInt32(dataReader.GetString(8));
-
+            productos.Cantidad = dataReader.GetInt32(8);
+            productos.Existencia = dataReader.GetInt32(9);
             return productos;
 
         }
@@ -60,7 +61,7 @@ namespace DAL
             OracleDataReader dataReader;
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "select Productos_id,nombre,Descripcion,precio_venta,precio_costo,Iva,tipo,modelo,cantidad from Productos  where Productos_id=:Productos_id";
+                command.CommandText = "select Productos_id,nombre,Descripcion,precio_venta,precio_costo,Iva,tipo,modelo,cantidad,Existencia from Productos  where Productos_id=:Productos_id";
                 command.Parameters.Add("Productos_id", OracleDbType.Varchar2).Value = Rut;
                 dataReader = command.ExecuteReader();
                 dataReader.Read();
@@ -88,6 +89,46 @@ namespace DAL
                 }
             }
             return productos;
+        }
+
+        public int ModificarTodos(Productos productos)
+        {
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = @"update Productos set Productos_id=:Productos_id,nombre=:Nombre,
+                            Descripcion=:Descripcion,precio_venta=:Precio_venta,
+                             precio_costo=:Precio_costo,Iva=:Iva,tipo=:Tipo,modelo=:Modelo,cantidad=:Cantidad,
+                                     Existencia=:Existencia
+                                        where Productos_id=:Productos_id";
+
+                command.Parameters.Add("Productos_id", OracleDbType.Varchar2).Value = productos.Productos_id;
+                command.Parameters.Add("nombre", OracleDbType.Varchar2).Value = productos.Nombre;
+                command.Parameters.Add("Descripcion", OracleDbType.Varchar2).Value = productos.Descripcion;
+                command.Parameters.Add("precio_venta", OracleDbType.Varchar2).Value = productos.Precio_venta;
+                command.Parameters.Add("precio_costo", OracleDbType.Varchar2).Value = productos.Precio_costo;
+                command.Parameters.Add("Iva", OracleDbType.Varchar2).Value = productos.Iva;
+                command.Parameters.Add("tipo", OracleDbType.Varchar2).Value = productos.Tipo;
+                command.Parameters.Add("modelo", OracleDbType.Varchar2).Value = productos.Modelo;
+                command.Parameters.Add("cantidad", OracleDbType.Varchar2).Value = productos.Cantidad;
+                command.Parameters.Add("Existencia", OracleDbType.Varchar2).Value = productos.Existencia;
+
+
+                OracleTransaction transaction = _connection.BeginTransaction();
+                var filas = command.ExecuteNonQuery();
+                transaction.Commit();
+                return filas;
+            }
+        }
+
+        public int Eliminar(Productos productos )
+        {
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = "Delete from Productos where Productos_id=:Productos_id";
+                command.Parameters.Add("Rut", OracleDbType.Varchar2).Value = productos.Productos_id;
+                var filas = command.ExecuteNonQuery();
+                return filas;
+            }
         }
 
     }

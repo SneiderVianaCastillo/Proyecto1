@@ -69,6 +69,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.dtgConsultarProductosPdf = new System.Windows.Forms.DataGridView();
             this.buttonPdf = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgConsultarProductosPdf)).BeginInit();
@@ -218,6 +219,7 @@
             this.buttonModificarPro.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonModificarPro.UseVisualStyleBackColor = false;
             this.buttonModificarPro.UseWaitCursor = true;
+            this.buttonModificarPro.Click += new System.EventHandler(this.buttonModificarPro_Click);
             // 
             // buttonEliminarProd
             // 
@@ -237,6 +239,7 @@
             this.buttonEliminarProd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.buttonEliminarProd.UseVisualStyleBackColor = false;
             this.buttonEliminarProd.UseWaitCursor = true;
+            this.buttonEliminarProd.Click += new System.EventHandler(this.buttonEliminarProd_Click);
             // 
             // buttonBuscarPro
             // 
@@ -261,6 +264,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.btnAgregar);
             this.panel1.Controls.Add(this.comboTipo);
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.txtModelo);
@@ -282,7 +286,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(11, 192);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(536, 214);
+            this.panel1.Size = new System.Drawing.Size(562, 231);
             this.panel1.TabIndex = 60;
             this.panel1.UseWaitCursor = true;
             // 
@@ -292,6 +296,9 @@
             "Repuesto",
             "Accesorio"});
             this.comboTipo.FormattingEnabled = true;
+            this.comboTipo.Items.AddRange(new object[] {
+            "Repuestos",
+            "Acesorios"});
             this.comboTipo.Location = new System.Drawing.Point(380, 76);
             this.comboTipo.Name = "comboTipo";
             this.comboTipo.Size = new System.Drawing.Size(121, 21);
@@ -391,7 +398,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
-            this.label10.Location = new System.Drawing.Point(163, 0);
+            this.label10.Location = new System.Drawing.Point(176, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(180, 25);
             this.label10.TabIndex = 68;
@@ -589,6 +596,25 @@
             this.buttonPdf.UseWaitCursor = true;
             this.buttonPdf.Click += new System.EventHandler(this.buttonPdf_Click);
             // 
+            // btnAgregar
+            // 
+            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(22)))), ((int)(((byte)(34)))));
+            this.btnAgregar.FlatAppearance.BorderSize = 0;
+            this.btnAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregar.ForeColor = System.Drawing.Color.LightGray;
+            this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
+            this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAgregar.Location = new System.Drawing.Point(467, 147);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(61, 58);
+            this.btnAgregar.TabIndex = 64;
+            this.btnAgregar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAgregar.UseVisualStyleBackColor = false;
+            this.btnAgregar.UseWaitCursor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
             // FrmRegistrarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,5 +689,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dtgConsultarProductosPdf;
         private System.Windows.Forms.Button buttonPdf;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

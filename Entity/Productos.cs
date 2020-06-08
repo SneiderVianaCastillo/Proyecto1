@@ -30,14 +30,14 @@ namespace Entity
 
         public bool Verificarexistencia()
         {
-            
-            if (Existencia<0)
+
+            if (Existencia < 0)
             {
                 return false;
             }
             return true;
         }
-      
+
 
     }
 }

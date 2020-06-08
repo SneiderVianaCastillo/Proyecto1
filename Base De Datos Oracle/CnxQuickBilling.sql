@@ -60,19 +60,24 @@ tipo varchar(15) not null,
 modelo VARCHAR2(15)  null,
 cantidad int not null
 );
-INSERT INTO productos values('001','llantas','llantas para motos de alta velocidad','50000','67000','19','repuesos','2020','1');
-INSERT INTO productos values('002','frenos','frenos para moto boxer','70000','90000','19','repuesos','2010','2');
-INSERT INTO productos values('003','bujias','bujias para motos de cilindraje 100','10000','17000','19','repuesos','2000','80');
-INSERT INTO productos values('004','llantas','llantas para motos de baja velociada','40000','57000','19','repuesos','2015','100');
-INSERT INTO productos values('005','motor pulsar 200','motor de moto pulsar de cilindraje 200','4000000','5000000','19','repuesos','2018','5');
-INSERT INTO productos values('006','neumaticos','neumaticos 120/200 para cualquier modelo','10000','27000','19','repuesos','2000','130');
-INSERT INTO productos values('007','carburador','carburador de maxima aceleracion para motos de mas de 150 cc','500000','607000','19','repuesos','2010','41');
-INSERT INTO productos values('008','motor dicel','motor dicel para camionestas tollotas','7000000','70007000','19','repuesos','2015','10');
-INSERT INTO productos values('009','espejos retrovisores','retrovisores para mazda 323','30000','57000','19','repuesos','2000','50');
-INSERT INTO productos values('0010','llantas 4x4','llantas para carros todo terreno','900000','990000','19','repuesos','2010','19');
+delete from productos;
+ alter table productos
+  add Existencia int not null;
+     alter table productos
+  modify Descripcion varchar2(80)  null;
+INSERT INTO productos values('001','llantas','llantas para motos de alta velocidad','50000','67000','19','Repuestos','2020','1','1');
+INSERT INTO productos values('002','frenos','frenos para moto boxer','70000','90000','19','Repuestos','2010','2','2');
+INSERT INTO productos values('003','bujias','bujias para motos de cilindraje 100','10000','17000','19','Repuestos','2000','80','80');
+INSERT INTO productos values('004','llantas','llantas para motos de baja velociada','40000','57000','19','Repuestos','2015','100','100');
+INSERT INTO productos values('005','motor pulsar 200','motor de moto pulsar de cilindraje 200','4000000','5000000','19','Repuestos','2018','5','5');
+INSERT INTO productos values('006','neumaticos','neumaticos 120/200 para cualquier modelo','10000','27000','19','Repuestos','2000','130','130');
+INSERT INTO productos values('007','carburador','carburador de alta velocidad  para motos de 150 cc','500000','607000','19','Repuestos','2010','41','41');
+INSERT INTO productos values('008','motor dicel','motor dicel para camionestas tollotas','7000000','70007000','19','Repuestos','2015','10','10');
+INSERT INTO productos values('009','espejos retrovisores','retrovisores para mazda 323','30000','57000','19','Acesorios','2000','50','50');
+INSERT INTO productos values('0010','llantas 4x4','llantas para carros todo terreno','900000','990000','19','Repuestos','2010','19','19');
 select * from productos;
  ALTER TABLE Productos ADD constraint pk_Productos_id PRIMARY KEY (Productos_id);
-
+commit
  /*Creamos la tabla Factura*/
 create table Factura
 (
@@ -82,6 +87,7 @@ Fecha  varchar2(12) not null,
 Cliente_id varchar2(12) not null,
 FormaDePago varchar2(12) not null
 );
+delete from Factura;
   /*Creamos la llave primaria de Factura*/
  ALTER TABLE Factura ADD constraint pk_Factura_id PRIMARY KEY (Factura_id);
  /*Creamos la llave Forane de Factura*/
@@ -100,7 +106,7 @@ fecha varchar2(12) not null,
 Factura_id varchar2(12) not null,
 Producto_id varchar2(12) not null
 );
-  
+  delete from DetalleFactura;
  ALTER TABLE DetalleFactura ADD constraint pk_DetalleFac_id PRIMARY KEY (DetalleFac_id);
  
  ALTER TABLE DetalleFactura

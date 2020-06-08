@@ -42,7 +42,7 @@ namespace PlayerUI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            agregarTabla();
         }
 
         
@@ -99,6 +99,18 @@ namespace PlayerUI
             }
         }
 
+        private void agregarTabla()
+        {
+            dtgConsultarProductosPdf.Columns.Add("codigo", "Codigo");
+            dtgConsultarProductosPdf.Columns.Add("nombre", "Nombre");
+            dtgConsultarProductosPdf.Columns.Add("descripcion", "Descripcion");
+            dtgConsultarProductosPdf.Columns.Add("precio compra", "Precio compra");
+            dtgConsultarProductosPdf.Columns.Add("precio venta", "Precio venta");
+            dtgConsultarProductosPdf.Columns.Add("iva", "Iva");
+            dtgConsultarProductosPdf.Columns.Add("tipo", "Tipo");
+            dtgConsultarProductosPdf.Columns.Add("modelo", "Modelo");
+            dtgConsultarProductosPdf.Columns.Add("cantidad", "Cantidad");
+        }
         private void butModificar_Click(object sender, EventArgs e)
         {
             var respuesta = MessageBox.Show("Está seguro de Modificar el Proveedor", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -156,51 +168,122 @@ namespace PlayerUI
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Productos productos = MapearProductos();
-            string mensaje = productosService.Guardar(productos);
-            MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
+            string codigo = txtCodigoProducto.Text;
+            if (codigo != "")
+            {
+                respuesta = productosService.BuscarxCodigo(codigo);
+
+                if (respuesta.productos == null)
+                {
+                    int Cantidad = Convert.ToInt32(txtCantidad.Text);
+                    Productos productos = MapearProductos();
+                    productos.CalcularExistencia(Cantidad);
+                    string mensaje = productosService.Guardar(productos);
+                    MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    
+                    int Cantidad = Convert.ToInt32(txtCantidad.Text);
+                    Productos productos = MapearProductos();
+                    productos.CalcularExistencia(Cantidad);
+                    string mensaje = productosService.ModificarTodos(productos);
+                    MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         private void buttonPdf_Click(object sender, EventArgs e)
         {
-            //SaveFileDialog saveFileDialog = new SaveFileDialog();
-            //saveFileDialog.Title = "Guardar Informe";
-            //saveFileDialog.InitialDirectory = @"c:/document";
-            //saveFileDialog.DefaultExt = "pdf";
-            //string filename = "";
-            //if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            //{
-            //    filename = saveFileDialog.FileName;
-            //    if (filename != "" && productos.Count > 0)
-            //    {
-            //        string mensaje = productosService.GenerarPdf(productos, filename);
+           
 
-            //        MessageBox.Show(mensaje, "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("No se especifico una ruta o No hay datos para generar el reporte", "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    }
-            //}
-            //ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
-            //PDF pdf = new PDF();
-            //IList<Productos> productos = new List<Productos>();
-            //respuesta = productosService.Consultar();
-            //string ruta = @"QuickBilling";
-            //pdf.GuardarPdf(respuesta.productos, ruta);
-            //MessageBox.Show("Documento pdf generado correctamente");
         }
 
         private void buttonBuscarPro_Click(object sender, EventArgs e)
         {
-            ConsultaProductosRespuesta respuesta = new ConsultaProductosRespuesta();
+            BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
+            string codigo = txtCodigoProducto.Text;
+            if (codigo != "")
+            {
+                respuesta = productosService.BuscarxCodigo(codigo);
 
-            dtgConsultarProductosPdf.DataSource = null;
-            respuesta = productosService.Consultar();
-            dtgConsultarProductosPdf.DataSource = respuesta.productos;
-            dtgConsultarProductosPdf.Refresh();
-            MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (respuesta.productos != null)
+                {
+                    txtNombreProducto.Text = respuesta.productos.Nombre;
+                    txtDescripcion.Text = respuesta.productos.Descripcion;
+                    txtPCompra .Text =  respuesta.productos.Precio_costo.ToString();
+                    txtPVenta.Text = respuesta.productos.Precio_venta.ToString();
+                    txtIva.Text = respuesta.productos.Iva.ToString();
+                    txtModelo.Text = respuesta.productos.Modelo;
+                    txtCantidad.Text = respuesta.productos.Cantidad.ToString();
+                    comboTipo.Text = respuesta.productos.Tipo;
+                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void buttonModificarPro_Click(object sender, EventArgs e)
+        {
+            var respuesta = MessageBox.Show("Está seguro de Modificar el Producto", "Mensaje de modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (respuesta == DialogResult.Yes)
+            {
+                int Cantidad = Convert.ToInt32(txtCantidad.Text);
+                Productos productos  = MapearProductos();
+                productos.CalcularExistencia(Cantidad);
+                string mensaje = productosService.ModificarTodos(productos);
+                MessageBox.Show(mensaje, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+        }
+
+        private void buttonEliminarProd_Click(object sender, EventArgs e)
+        {
+            string codigo = txtCodigoProducto.Text;
+            if (codigo != "")
+            {
+                var respuesta = MessageBox.Show("Está seguro de eliminar la información", "Mensaje de Eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (respuesta == DialogResult.Yes)
+                {
+                    string mensaje = productosService.Eliminar(codigo);
+                    MessageBox.Show(mensaje, "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite el rut del producto y presione el boton buscar", "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            dtgConsultarProductosPdf.Rows.Add(txtCodigoProducto.Text, txtNombreProducto.Text, txtDescripcion.Text, txtPCompra.Text, txtPVenta.Text, txtIva.Text, comboTipo.Text, txtModelo.Text, txtCantidad.Text);
+            txtCodigoProducto.Text = "";
+            txtNombreProducto.Text = "";
+            txtDescripcion.Text = "";
+            txtPCompra.Text = "";
+            txtPVenta.Text = "";
+            txtIva.Text = "";
+            comboTipo.Text = "";
+            txtModelo.Text = "";
+            txtCantidad.Text = "";
         }
     }
 }
