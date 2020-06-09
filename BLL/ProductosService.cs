@@ -166,7 +166,7 @@ namespace BLL
                 {
                     repositorio.Eliminar(productos);
                     conexion.Close();
-                    return ($"El Proveedor {productos.Nombre} se ha eliminado satisfactoriamente.");
+                    return ($"El Producto {productos.Nombre} se ha eliminado satisfactoriamente.");
                 }
                 else
                 {

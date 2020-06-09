@@ -173,24 +173,25 @@ namespace PlayerUI
             try
             {
                 BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
-    
+                Productos productos = new Productos();
+                string codigo = productos.Productos_id;
+                int Cantidad = productos.Cantidad;
                 for (int i = 0; i <= LisProductos.Count; i++)
                 {
 
-             
-                    string codigo = productos.Productos_id;
-                    int Cantidad = productos.Cantidad;
+                       
+
                     respuesta = productosService.BuscarxCodigo(codigo);
                     if (respuesta.productos == null)
                     {
-                        Productos productos = new Productos();
+                      
                         MapearLista(productos, i);
                         productos.CalcularExistencia(Cantidad);
                         productosService.Guardar(productos);
                     }
                     else
                     {
-                        Productos productos = new Productos();
+                        
                         MapearLista(productos, i);
                         productos.CalcularExistencia(Cantidad);
                         productosService.ModificarTodos(productos);
@@ -224,7 +225,8 @@ namespace PlayerUI
                 ListaProductos.Tipo = LisProductos[i].Tipo;
                 ListaProductos.Modelo = LisProductos[i].Modelo;
                 ListaProductos.Cantidad = LisProductos[i].Cantidad;
-          
+                ListaProductos.Existencia = LisProductos[i].Existencia;
+
 
             }
             catch (Exception) { }
@@ -329,7 +331,9 @@ namespace PlayerUI
             string codigo = txtCodigoProducto.Text;
             if (codigo != "")
             {
+                int cantidad = Convert.ToInt32(txtCantidad.Text);
                 Productos productos = MapearProductos();
+                productos.CalcularExistencia(cantidad);
                 LisProductos.Add(productos);
 
                 dtgConsultarProductosPdf.Rows.Add(txtCodigoProducto.Text, txtNombreProducto.Text, txtDescripcion.Text, txtPCompra.Text, txtPVenta.Text, txtIva.Text, comboTipo.Text, txtModelo.Text, txtCantidad.Text);
