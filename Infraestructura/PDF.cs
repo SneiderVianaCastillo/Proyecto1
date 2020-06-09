@@ -13,22 +13,16 @@ namespace Infraestructura
     public class PDF
     {
         
-        public void GuardarPdf(IList<Productos> productos, string ruta)
+        public void GuardarProductoPdf(IList<Productos> productos, string ruta)
         {
             FileStream fileStream = new FileStream(ruta, FileMode.Create);
             Document document = new Document(iTextSharp.text.PageSize.LETTER, 10, 30, 30, 10);
             PdfWriter pw = PdfWriter.GetInstance(document, fileStream);
-
-    
             document.AddAuthor("Proyecto QuickBilling");
-
             document.Open();
-
-            document.Add(new Paragraph("Lista de productos " + "         " + "prueba"));
+            document.Add(new Paragraph("Lista De Productos Comprados " + "         " + "Productos"));
             document.Add(new Paragraph("\n"));
             document.Add(LlenarTabla(productos));
-
-
             document.Close();
 
         }

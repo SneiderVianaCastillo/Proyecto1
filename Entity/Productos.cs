@@ -19,6 +19,7 @@ namespace Entity
         public decimal Iva { get; set; }
         public int Cantidad { get; set; }
 
+
         public void CalcularExistencia(int cantidad)
         {
             Existencia = Existencia + cantidad;

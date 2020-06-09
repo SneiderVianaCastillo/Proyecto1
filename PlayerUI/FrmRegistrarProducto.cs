@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -18,10 +18,11 @@ namespace PlayerUI
     public partial class FrmRegistrarProducto : Form
     {
         ProveedorService proveedorService;
-        Proveedor proveedor ;
+        Proveedor proveedor;
         PDF pdf;
         ProductosService productosService;
-        Productos  productos;
+        Productos productos;
+        List<Productos> LisProductos = new List<Productos>();
         public FrmRegistrarProducto()
         {
             InitializeComponent();
@@ -45,11 +46,11 @@ namespace PlayerUI
             agregarTabla();
         }
 
-        
+
 
         private void Btnsalir_Click(object sender, EventArgs e)
         {
-        
+
         }
 
         private void Button5_Click(object sender, EventArgs e)
@@ -62,7 +63,7 @@ namespace PlayerUI
             Proveedor proveedor = MapearProveedor();
             string mensaje = proveedorService.Guardar(proveedor);
             MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            Limpiar();
+            //Limpiar();
         }
 
         public void Limpiar()
@@ -70,7 +71,7 @@ namespace PlayerUI
             txtRut.Text = "";
             txtNombreComercial.Text = "";
             txtTelefono.Text = "";
-          
+
         }
 
         private void butBuscar_Click(object sender, EventArgs e)
@@ -156,8 +157,8 @@ namespace PlayerUI
             productos = new Productos();
             productos.Productos_id = txtCodigoProducto.Text;
             productos.Nombre = txtNombreProducto.Text;
-            productos.Descripcion= txtDescripcion.Text;
-            productos.Precio_venta= Convert.ToDecimal( txtPVenta.Text);
+            productos.Descripcion = txtDescripcion.Text;
+            productos.Precio_venta = Convert.ToDecimal(txtPVenta.Text);
             productos.Precio_costo = Convert.ToDecimal(txtPCompra.Text);
             productos.Iva = Convert.ToInt32(txtIva.Text);
             productos.Tipo = comboTipo.Text;
@@ -168,43 +169,94 @@ namespace PlayerUI
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
-            string codigo = txtCodigoProducto.Text;
-            if (codigo != "")
+  
+            try
             {
-                respuesta = productosService.BuscarxCodigo(codigo);
-
-                if (respuesta.productos == null)
+                BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
+    
+                for (int i = 0; i <= LisProductos.Count; i++)
                 {
-                    int Cantidad = Convert.ToInt32(txtCantidad.Text);
-                    Productos productos = MapearProductos();
-                    productos.CalcularExistencia(Cantidad);
-                    string mensaje = productosService.Guardar(productos);
-                    MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    
-                    int Cantidad = Convert.ToInt32(txtCantidad.Text);
-                    Productos productos = MapearProductos();
-                    productos.CalcularExistencia(Cantidad);
-                    string mensaje = productosService.ModificarTodos(productos);
-                    MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+             
+                    string codigo = productos.Productos_id;
+                    int Cantidad = productos.Cantidad;
+                    respuesta = productosService.BuscarxCodigo(codigo);
+                    if (respuesta.productos == null)
+                    {
+                        Productos productos = new Productos();
+                        MapearLista(productos, i);
+                        productos.CalcularExistencia(Cantidad);
+                        productosService.Guardar(productos);
+                    }
+                    else
+                    {
+                        Productos productos = new Productos();
+                        MapearLista(productos, i);
+                        productos.CalcularExistencia(Cantidad);
+                        productosService.ModificarTodos(productos);
+                    }
 
                 }
+
+                MessageBox.Show("Productos Guardados ");
 
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Por favor digite una identificación", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
 
+                MessageBox.Show("Asegúrese de establecer una lista de compras. " + ex.Message, "Resultado de guardar", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+           
+
+        }
+
+
+        private void MapearLista(Productos ListaProductos, int i)
+        {
+            try
+            {
+                ListaProductos.Productos_id= LisProductos[i].Productos_id;
+                ListaProductos.Nombre= LisProductos[i].Nombre;
+                ListaProductos.Descripcion = LisProductos[i].Descripcion;
+                ListaProductos.Precio_costo = LisProductos[i].Precio_costo;
+                ListaProductos.Precio_venta = LisProductos[i].Precio_venta;
+                ListaProductos.Iva = LisProductos[i].Iva;
+                ListaProductos.Tipo = LisProductos[i].Tipo;
+                ListaProductos.Modelo = LisProductos[i].Modelo;
+                ListaProductos.Cantidad = LisProductos[i].Cantidad;
+          
+
+            }
+            catch (Exception) { }
         }
 
         private void buttonPdf_Click(object sender, EventArgs e)
         {
-           
 
+            ProductosPdf();
+        }
+        private void ProductosPdf()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Guardar Informe De Productos Comprados";
+            saveFileDialog.InitialDirectory = @"c:/document";
+            saveFileDialog.DefaultExt = "pdf";
+            string filename = "";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filename = saveFileDialog.FileName;
+                if (filename != "" && LisProductos.Count > 0)
+                {
+                    string mensaje = productosService.GenerarProductosPdf(LisProductos, filename);
+
+                    MessageBox.Show(mensaje, "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("No se especifico una ruta o No hay datos para generar el reporte", "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
 
         private void buttonBuscarPro_Click(object sender, EventArgs e)
@@ -274,16 +326,31 @@ namespace PlayerUI
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            dtgConsultarProductosPdf.Rows.Add(txtCodigoProducto.Text, txtNombreProducto.Text, txtDescripcion.Text, txtPCompra.Text, txtPVenta.Text, txtIva.Text, comboTipo.Text, txtModelo.Text, txtCantidad.Text);
-            txtCodigoProducto.Text = "";
-            txtNombreProducto.Text = "";
-            txtDescripcion.Text = "";
-            txtPCompra.Text = "";
-            txtPVenta.Text = "";
-            txtIva.Text = "";
-            comboTipo.Text = "";
-            txtModelo.Text = "";
-            txtCantidad.Text = "";
+            string codigo = txtCodigoProducto.Text;
+            if (codigo != "")
+            {
+                Productos productos = MapearProductos();
+                LisProductos.Add(productos);
+
+                dtgConsultarProductosPdf.Rows.Add(txtCodigoProducto.Text, txtNombreProducto.Text, txtDescripcion.Text, txtPCompra.Text, txtPVenta.Text, txtIva.Text, comboTipo.Text, txtModelo.Text, txtCantidad.Text);
+                txtCodigoProducto.Text = "";
+                txtNombreProducto.Text = "";
+                txtDescripcion.Text = "";
+                txtPCompra.Text = "";
+                txtPVenta.Text = "";
+                txtIva.Text = "";
+                comboTipo.Text = "";
+                txtModelo.Text = "";
+                txtCantidad.Text = "";
+
+            }
+            else
+            {
+                MessageBox.Show("Por favor digite un codigo de producto", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            
+            
         }
     }
 }

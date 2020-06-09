@@ -587,7 +587,7 @@
             this.buttonPdf.ForeColor = System.Drawing.Color.LightGray;
             this.buttonPdf.Image = ((System.Drawing.Image)(resources.GetObject("buttonPdf.Image")));
             this.buttonPdf.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.buttonPdf.Location = new System.Drawing.Point(812, 459);
+            this.buttonPdf.Location = new System.Drawing.Point(827, 457);
             this.buttonPdf.Name = "buttonPdf";
             this.buttonPdf.Size = new System.Drawing.Size(61, 58);
             this.buttonPdf.TabIndex = 63;
@@ -606,7 +606,7 @@
             this.btnAgregar.ForeColor = System.Drawing.Color.LightGray;
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
             this.btnAgregar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregar.Location = new System.Drawing.Point(467, 147);
+            this.btnAgregar.Location = new System.Drawing.Point(478, 147);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(61, 58);
             this.btnAgregar.TabIndex = 64;

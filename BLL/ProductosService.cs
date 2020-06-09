@@ -109,12 +109,12 @@ namespace BLL
 
         }
 
-        public string GenerarPdf(List<Productos> productos, string filename)
+        public string GenerarProductosPdf(List<Productos> productos, string filename)
         {
-            PDF documentoPdf = new PDF();
+            PDF documentoClientePdf = new PDF();
             try
             {
-                documentoPdf.GuardarPdf(productos, filename);
+                documentoClientePdf.GuardarProductoPdf(productos, filename);
                 return "Se genró el Documento satisfactoriamente";
             }
             catch (Exception e)
