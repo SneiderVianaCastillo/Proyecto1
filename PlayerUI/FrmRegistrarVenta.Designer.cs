@@ -60,9 +60,9 @@
             this.label12 = new System.Windows.Forms.Label();
             this.txtSubTotal = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.txtIvaTotall = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.txtTotal = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
@@ -402,12 +402,12 @@
             this.label15.Text = "Sub total";
             this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
-            // textBox12
+            // txtIvaTotall
             // 
-            this.textBox12.Location = new System.Drawing.Point(160, 431);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(105, 20);
-            this.textBox12.TabIndex = 29;
+            this.txtIvaTotall.Location = new System.Drawing.Point(160, 431);
+            this.txtIvaTotall.Name = "txtIvaTotall";
+            this.txtIvaTotall.Size = new System.Drawing.Size(105, 20);
+            this.txtIvaTotall.TabIndex = 29;
             // 
             // label16
             // 
@@ -420,12 +420,12 @@
             this.label16.Text = "IVA";
             this.label16.Click += new System.EventHandler(this.label16_Click);
             // 
-            // textBox13
+            // txtTotal
             // 
-            this.textBox13.Location = new System.Drawing.Point(292, 431);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(131, 20);
-            this.textBox13.TabIndex = 31;
+            this.txtTotal.Location = new System.Drawing.Point(292, 431);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.Size = new System.Drawing.Size(131, 20);
+            this.txtTotal.TabIndex = 31;
             // 
             // label17
             // 
@@ -492,9 +492,9 @@
             this.ClientSize = new System.Drawing.Size(904, 463);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox13);
+            this.Controls.Add(this.txtTotal);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.textBox12);
+            this.Controls.Add(this.txtIvaTotall);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.txtSubTotal);
             this.Controls.Add(this.label15);
@@ -551,9 +551,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtSubTotal;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox txtIvaTotall;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox txtTotal;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button buttonBuscarProducto;
         private System.Windows.Forms.Button button2;

@@ -184,16 +184,18 @@ namespace PlayerUI
                         detalle.CalcularIva();
                         detalle.CalcularTotal();
                         detalle.productos.DescontarExistencia(detalle.Cantidad);
+
                         LisDetalle.Add(detalle);
                         
 
                         dtgFactura.Rows.Add(txtCodigo.Text, txtNombreProducto.Text, txtPrecio.Text, txtCantidad.Text, detalle.Iva,detalle.Subtotal,detalle.Total);
                         LimpiarPro();
                     }
-
+                   
+                    
                 }
-                AgregarTotales();
 
+               
 
 
 
@@ -202,16 +204,25 @@ namespace PlayerUI
             {
                 MessageBox.Show("Por favor digite un codigo de producto", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            AgregarTotales();
         }
 
         private void AgregarTotales()
         {
+            Factura factura = new Factura();
             foreach (var item in LisDetalle)
             {
-                Factura factura = new Factura();
+                int Cantidad = item.Cantidad;
+               
+                factura.AgregarDetalles(item.productos,Cantidad);
                 factura.CalcularSubtotal();
+                factura.CalcularIva();
+                factura.CalcularTotal();
+
                 LisFacturaAux.Add(factura);
                 txtSubTotal.Text = Convert.ToString(factura.SubTotal);
+                txtIvaTotall.Text = Convert.ToString(factura.Iva);
+                txtTotal.Text = Convert.ToString(factura.Total);
             }
         }
         private void LimpiarPro()
@@ -220,6 +231,7 @@ namespace PlayerUI
             txtNombreProducto.Text = "";
             txtPrecio.Text = "";
             txtCantidad.Text = "";
+            txtIva.Text = "";
         }
 
         private void FrmRegistrarVenta_Load(object sender, EventArgs e)

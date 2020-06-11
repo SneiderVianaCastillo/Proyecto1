@@ -9,14 +9,12 @@ namespace Entity
    public class Factura
     {
         public List<DetalleFactura> detalleFacturas { get; set; }
-        public Cliente Empleado { get; set; }
         public DateTime Fecha { get; set; }
         public FormaPago FormaPago { get; set; }
         public decimal Iva { get; set; }
         public bool EstadoFactura { get; set; }
         public Cliente cliente { get; set; }
         public decimal SubTotal { get; set; }
-        public decimal TotalIva { get; set; }
         public decimal Total { get; set; }
 
         public Factura()
