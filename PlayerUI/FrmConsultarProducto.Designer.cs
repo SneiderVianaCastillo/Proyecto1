@@ -69,6 +69,7 @@
             this.DtgConsultarProductos.Name = "DtgConsultarProductos";
             this.DtgConsultarProductos.Size = new System.Drawing.Size(658, 150);
             this.DtgConsultarProductos.TabIndex = 21;
+            this.DtgConsultarProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DtgConsultarProductos_CellContentClick);
             // 
             // button5
             // 

@@ -8,8 +8,8 @@ namespace Entity
 {
    public class DetalleFactura
     {
-        public int CodigoFactura { get; set; }
-        public int CodigoProducto { get; set; }
+        public string CodigoFactura { get; set; }
+        public string CodigoProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal Iva { get; set; }
         public decimal Precio_venta { get; set; }
@@ -19,6 +19,10 @@ namespace Entity
         public decimal Subtotal { get; set; }
         public decimal Total { get; set; }
 
+        public DetalleFactura()
+        {
+            productos = new Productos();
+        }
         public void CalcularSubTotal()
         {
             Subtotal = productos.Precio_venta  * Cantidad;

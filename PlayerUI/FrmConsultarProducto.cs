@@ -40,5 +40,10 @@ namespace PlayerUI
             DtgConsultarProductos.Refresh();
             MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void DtgConsultarProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

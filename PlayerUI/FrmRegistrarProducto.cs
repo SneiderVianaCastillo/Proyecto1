@@ -19,7 +19,6 @@ namespace PlayerUI
     {
         ProveedorService proveedorService;
         Proveedor proveedor;
-        PDF pdf;
         ProductosService productosService;
         Productos productos;
         List<Productos> LisProductos = new List<Productos>();
@@ -66,7 +65,7 @@ namespace PlayerUI
             //Limpiar();
         }
 
-        public void Limpiar()
+        public void LimpiarProvedor()
         {
             txtRut.Text = "";
             txtNombreComercial.Text = "";
@@ -169,37 +168,47 @@ namespace PlayerUI
         }
         private void button1_Click(object sender, EventArgs e)
         {
-  
+
             try
             {
                 BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
                 Productos productos = new Productos();
-                string codigo = productos.Productos_id;
-                int Cantidad = productos.Cantidad;
-                for (int i = 0; i <= LisProductos.Count; i++)
+
+                foreach (var item in LisProductos)
                 {
 
-                       
-
+                    int Cantidad = item.Cantidad;
+                    string codigo = item.Productos_id;
+                    int Existencia = productos.Existencia;
                     respuesta = productosService.BuscarxCodigo(codigo);
-                    if (respuesta.productos == null)
+                    if (respuesta.productos != null)
                     {
-                      
+
+                    productos.Productos_id = item.Productos_id;
+                    productos.Nombre = item.Nombre;
+                    productos.Descripcion = item.Descripcion;
+                    productos.Precio_costo = item.Precio_costo;
+                    productos.Precio_venta = item.Precio_venta;
+                    productos.Iva = item.Iva;
+                    productos.Tipo = item.Tipo;
+                    productos.Modelo = item.Modelo;
+                    productos.Cantidad = item.Cantidad;
+                    productos.Existencia = item.Existencia;
+
+                    productos.Existencia = 0;
+                    productos.CalcularExistencia(Cantidad);
+                    productosService.ModificarTodos(productos);
+                }
+
+                    for (int i = 0; i <= LisProductos.Count; i++)
+                    {
                         MapearLista(productos, i);
-                        productos.CalcularExistencia(Cantidad);
                         productosService.Guardar(productos);
-                    }
-                    else
-                    {
-                        
-                        MapearLista(productos, i);
-                        productos.CalcularExistencia(Cantidad);
-                        productosService.ModificarTodos(productos);
                     }
 
                 }
 
-                MessageBox.Show("Productos Guardados ");
+                    MessageBox.Show("Productos Guardados ");
 
             }
             catch (Exception ex)
@@ -337,24 +346,27 @@ namespace PlayerUI
                 LisProductos.Add(productos);
 
                 dtgConsultarProductosPdf.Rows.Add(txtCodigoProducto.Text, txtNombreProducto.Text, txtDescripcion.Text, txtPCompra.Text, txtPVenta.Text, txtIva.Text, comboTipo.Text, txtModelo.Text, txtCantidad.Text);
-                txtCodigoProducto.Text = "";
-                txtNombreProducto.Text = "";
-                txtDescripcion.Text = "";
-                txtPCompra.Text = "";
-                txtPVenta.Text = "";
-                txtIva.Text = "";
-                comboTipo.Text = "";
-                txtModelo.Text = "";
-                txtCantidad.Text = "";
+                Limpiar();
 
             }
             else
             {
                 MessageBox.Show("Por favor digite un codigo de producto", "Datos", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            
+        }
 
-            
-            
+        private void Limpiar()
+        {
+            txtCodigoProducto.Text = "";
+            txtNombreProducto.Text = "";
+            txtDescripcion.Text = "";
+            txtPCompra.Text = "";
+            txtPVenta.Text = "";
+            txtIva.Text = "";
+            comboTipo.Text = "";
+            txtModelo.Text = "";
+            txtCantidad.Text = "";
         }
     }
 }

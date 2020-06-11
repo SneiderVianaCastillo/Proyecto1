@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entity
 {
-   public class Facturacs
+   public class Factura
     {
-        public List<DetalleFactura> DetalleFacturas { get; set; }
-        public int Codigo { get; set; }
-        public string CodigoCliente { get; set; }
+        public List<DetalleFactura> detalleFacturas { get; set; }
         public Cliente Empleado { get; set; }
         public DateTime Fecha { get; set; }
         public FormaPago FormaPago { get; set; }
@@ -21,7 +19,10 @@ namespace Entity
         public decimal TotalIva { get; set; }
         public decimal Total { get; set; }
 
-
+        public Factura()
+        {
+            detalleFacturas = new List<DetalleFactura>();
+        }
 
         public void AgregarDetalles(Productos producto,int cantidad)
         {
@@ -30,16 +31,16 @@ namespace Entity
             detalleFactura.Descripcion = producto.Descripcion;
             detalleFactura.Cantidad = cantidad;
             detalleFactura.CalcularTotal();
-            DetalleFacturas.Add(detalleFactura);
+            detalleFacturas.Add(detalleFactura);
         }
        
         public void CalcularSubtotal()
         {
-            SubTotal = DetalleFacturas.Sum(d=>d.Subtotal);
+            SubTotal = detalleFacturas.Sum(d=>d.Subtotal);
         }
         public void CalcularIva()
         {
-            Iva = DetalleFacturas.Sum(d => d.Iva);
+            Iva = detalleFacturas.Sum(d => d.Iva);
         }
         public void CalcularTotal()
         {
