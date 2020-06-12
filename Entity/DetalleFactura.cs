@@ -8,8 +8,8 @@ namespace Entity
 {
    public class DetalleFactura
     {
+        public string DetalleFac_id { get; set; }
         public string CodigoFactura { get; set; }
-        public string CodigoProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal Iva { get; set; }
         public decimal Precio_venta { get; set; }

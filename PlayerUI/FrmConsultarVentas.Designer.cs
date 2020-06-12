@@ -84,6 +84,7 @@
             this.btnBuscarNumFactura.Size = new System.Drawing.Size(48, 37);
             this.btnBuscarNumFactura.TabIndex = 5;
             this.btnBuscarNumFactura.UseVisualStyleBackColor = false;
+            this.btnBuscarNumFactura.Click += new System.EventHandler(this.btnBuscarNumFactura_Click);
             // 
             // label3
             // 

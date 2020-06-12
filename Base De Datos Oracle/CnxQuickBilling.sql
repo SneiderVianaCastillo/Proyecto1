@@ -60,6 +60,9 @@ tipo varchar(15) not null,
 modelo VARCHAR2(15)  null,
 cantidad int not null
 );
+
+  alter table Productos
+  modify Iva double  null;
 delete from productos;
  alter table productos
   add Existencia int not null;
@@ -83,11 +86,13 @@ create table Factura
 (
 Factura_id varchar2(12) not null,
 Totales number(15,2) not null,
-Fecha  varchar2(12) not null,
+Fecha  DATE not null,
 Cliente_id varchar2(12) not null,
 FormaDePago varchar2(12) not null
 );
-delete from Factura;
+
+
+select *from Factura;
   /*Creamos la llave primaria de Factura*/
  ALTER TABLE Factura ADD constraint pk_Factura_id PRIMARY KEY (Factura_id);
  /*Creamos la llave Forane de Factura*/
@@ -102,11 +107,11 @@ create table DetalleFactura
 DetalleFac_id varchar2(12) not null,
 Cantidad int not null,
 Costo  number(15,2) not null,
-fecha varchar2(12) not null,
 Factura_id varchar2(12) not null,
 Producto_id varchar2(12) not null
 );
-  delete from DetalleFactura;
+
+  select * from DetalleFactura;
  ALTER TABLE DetalleFactura ADD constraint pk_DetalleFac_id PRIMARY KEY (DetalleFac_id);
  
  ALTER TABLE DetalleFactura
@@ -185,7 +190,7 @@ select * from factura;
 delete from factura;
  /*Insertamos registros a la tabla DetalleFactura*/
 INSERT INTO DetalleFactura values('1',2,20000,'24/05/2020','1','003');
-INSERT INTO DetalleFactura values('2',1,40000,'24/05/2020','6','004');
+INSERT INTO DetalleFactura values('2',1,40000,'24/05/2020','2','004');
 INSERT INTO DetalleFactura values('3',2,20000,'24/05/2020','6','003');
 INSERT INTO DetalleFactura values('4',2,70000,'24/05/2020','4','002');
 INSERT INTO DetalleFactura values('5',3,30000,'24/05/2020','4','006');
@@ -198,15 +203,24 @@ INSERT INTO DetalleFactura values('10',1,10000,'24/05/2020','7','003');
  delete from detallefactura;
 commit;
 
+CREATE OR REPLACE TRIGGER TG_PRODUCTOS_ACTUALIZAR_STOCK
+AFTER INSERT ON DetalleFactura
+FOR EACH ROW
+DECLARE
+BEGIN
+     update productos
+     set Existencia = Existencia - :new.cantidad
+     where Productos_id = :new.Productos_id;
+
+END;
+/
 
 
 
 
+select * from productos;
 
-
-
-
-SELECT * FROM CLIENTE;
+SELECT * FROM DetalleFactura;
 
 
 

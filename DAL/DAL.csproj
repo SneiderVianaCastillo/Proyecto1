@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="ClienteRepository.cs" />
     <Compile Include="ConnectionManager.cs" />
+    <Compile Include="DetalleFacturaRepsitory.cs" />
     <Compile Include="FacturaRepository.cs" />
     <Compile Include="ProductosRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,18 +8,20 @@ namespace Entity
 {
    public class Factura
     {
+        public string Factura_id { get; set; }
         public List<DetalleFactura> detalleFacturas { get; set; }
         public DateTime Fecha { get; set; }
-        public FormaPago FormaPago { get; set; }
+        public string FormaPago { get; set; }
         public decimal Iva { get; set; }
         public bool EstadoFactura { get; set; }
         public Cliente cliente { get; set; }
         public decimal SubTotal { get; set; }
-        public decimal Total { get; set; }
+        public decimal Totales { get; set; }
 
         public Factura()
         {
             detalleFacturas = new List<DetalleFactura>();
+            cliente = new Cliente();
         }
 
         public void AgregarDetalles(Productos producto,int cantidad)
@@ -44,7 +46,7 @@ namespace Entity
         {
             CalcularSubtotal();
             CalcularIva();
-            Total = SubTotal + Iva;
+            Totales = SubTotal + Iva;
         }
 
 

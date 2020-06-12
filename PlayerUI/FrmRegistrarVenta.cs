@@ -11,6 +11,7 @@ using BLL;
 using Entity;
 using Infraestructura;
 using static BLL.ClienteService;
+using static BLL.FacturaService;
 using static BLL.ProductosService;
 
 namespace PlayerUI
@@ -20,8 +21,11 @@ namespace PlayerUI
     
         ClienteService clienteService;
         ProductosService productosService;
+        FacturaService facturaService;
+        DetalleFacturaService detalleFacturaService;
         Productos productos;
         DetalleFactura detalleFatura;
+        List<Factura> LisFactura;
         List<DetalleFactura> LisDetalle = new List<DetalleFactura>();
         List<Productos> LisDetalleAux;
         List<Factura> LisFacturaAux;
@@ -30,8 +34,11 @@ namespace PlayerUI
             InitializeComponent();
             clienteService = new ClienteService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
             productosService = new ProductosService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
-           LisDetalleAux = new List< Productos>();
+            facturaService = new FacturaService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
+            detalleFacturaService = new DetalleFacturaService(ConfigConnection.connectionString, ConfigConnection.ProviderName);
+            LisDetalleAux = new List< Productos>();
             LisFacturaAux = new List<Factura>();
+            LisFactura = new List<Factura>();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -86,6 +93,7 @@ namespace PlayerUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             BusquedaClienteRespuesta respuesta = new BusquedaClienteRespuesta();
             string cliente_id = txtIdentificacion.Text;
             if (cliente_id != "")
@@ -94,6 +102,7 @@ namespace PlayerUI
 
                 if (respuesta.cliente != null)
                 {
+                    NFacturas();
                     txtNombreCliente.Text = respuesta.cliente.PrimerNombre;
                     MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -109,10 +118,24 @@ namespace PlayerUI
             }
         }
 
+        private void NFacturas()
+        {
+            int N_Factura=1;
+            ConsultaFcturaRespuesta respuesta = new ConsultaFcturaRespuesta();
+            respuesta = facturaService.Consultar();
+            LisFactura = respuesta.factura.ToList();
+            foreach (var item in LisFactura)
+            {
+                N_Factura++;
+            }
+            txtNFactura.Text = Convert.ToString(N_Factura);
+        }
+
         private void button7_Click(object sender, EventArgs e)
         {
             BusquedaProductosRespuesta respuesta = new BusquedaProductosRespuesta();
             string codigo = txtCodigo.Text;
+
             if (codigo != "")
             {
                 respuesta = productosService.BuscarxCodigo(codigo);
@@ -180,6 +203,7 @@ namespace PlayerUI
                             detalle.productos.Iva = 0;
                         }
                         detalle.productos.Precio_venta = item.Precio_venta;
+                        detalle.productos.Productos_id = item.Productos_id;
                         detalle.CalcularSubTotal();
                         detalle.CalcularIva();
                         detalle.CalcularTotal();
@@ -191,13 +215,8 @@ namespace PlayerUI
                         dtgFactura.Rows.Add(txtCodigo.Text, txtNombreProducto.Text, txtPrecio.Text, txtCantidad.Text, detalle.Iva,detalle.Subtotal,detalle.Total);
                         LimpiarPro();
                     }
-                   
-                    
+                             
                 }
-
-               
-
-
 
             }
             else
@@ -222,7 +241,7 @@ namespace PlayerUI
                 LisFacturaAux.Add(factura);
                 txtSubTotal.Text = Convert.ToString(factura.SubTotal);
                 txtIvaTotall.Text = Convert.ToString(factura.Iva);
-                txtTotal.Text = Convert.ToString(factura.Total);
+                txtTotal.Text = Convert.ToString(factura.Totales);
             }
         }
         private void LimpiarPro()
@@ -238,5 +257,64 @@ namespace PlayerUI
         {
             agregarTabla();
         }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MapearListDetalle(DetalleFactura detalle, int i)
+        {
+            try
+            {
+                detalle.DetalleFac_id= LisDetalle[i].DetalleFac_id;
+                detalle.Cantidad = LisDetalle[i].Cantidad;
+                detalle.Total= LisDetalle[i].Total;
+                detalle.CodigoFactura = LisDetalle[i].CodigoFactura;
+                detalle.productos.Productos_id = LisDetalle[i].productos.Productos_id;
+            }
+            catch (Exception) { }
+        }
+
+        private void MapearListFactura(Factura factura, int i)
+        {
+            try
+            {
+                factura.Factura_id = LisFacturaAux[i].Factura_id;
+            factura.Totales = LisFacturaAux[i].Totales;
+            factura.Fecha = LisFacturaAux[i].Fecha;
+            factura.cliente.Identificacion= LisFacturaAux[i].Factura_id;
+            factura.Factura_id = LisFacturaAux[i].cliente.Identificacion;
+            factura.FormaPago= LisFacturaAux[i].FormaPago;
+            }
+            catch (Exception) { }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Factura factura = new Factura();
+                for (int i = 0; i <= LisFacturaAux.Count; i++)
+                {
+                    MapearListFactura(factura, i);
+                   facturaService.Guardar(factura);
+                }
+                DetalleFactura detalle = new DetalleFactura();
+                for (int i = 0; i <= LisDetalle.Count; i++)
+                {
+                    MapearListDetalle(detalle, i);
+                    detalleFacturaService.Guardar(detalle);
+                }
+
+                MessageBox.Show( "Resultado de guardar");
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Asegúrese de establecer una lista de compras. " + ex.Message, "Resultado de guardar", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            }
+        }
+  
     }
 }

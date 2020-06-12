@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistrarVenta));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtIva = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.buttonBuscarProducto = new System.Windows.Forms.Button();
             this.buttonAñadir = new System.Windows.Forms.Button();
             this.txtCantidad = new System.Windows.Forms.TextBox();
@@ -56,7 +58,7 @@
             this.dtgFactura = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.txtNFactura = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtSubTotal = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
@@ -66,8 +68,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.txtIva = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgFactura)).BeginInit();
             this.panel2.SuspendLayout();
@@ -80,7 +82,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
-            this.label1.Location = new System.Drawing.Point(411, 9);
+            this.label1.Location = new System.Drawing.Point(416, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 25);
             this.label1.TabIndex = 1;
@@ -90,6 +92,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.txtIva);
             this.panel1.Controls.Add(this.label18);
             this.panel1.Controls.Add(this.buttonBuscarProducto);
@@ -114,8 +118,25 @@
             this.panel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(42)))), ((int)(((byte)(83)))));
             this.panel1.Location = new System.Drawing.Point(12, 37);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(527, 219);
+            this.panel1.Size = new System.Drawing.Size(498, 219);
             this.panel1.TabIndex = 2;
+            // 
+            // txtIva
+            // 
+            this.txtIva.Location = new System.Drawing.Point(278, 178);
+            this.txtIva.Name = "txtIva";
+            this.txtIva.Size = new System.Drawing.Size(62, 20);
+            this.txtIva.TabIndex = 23;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.ForeColor = System.Drawing.Color.White;
+            this.label18.Location = new System.Drawing.Point(277, 162);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(22, 13);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "Iva";
             // 
             // buttonBuscarProducto
             // 
@@ -136,7 +157,7 @@
             this.buttonAñadir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonAñadir.ForeColor = System.Drawing.Color.Gray;
             this.buttonAñadir.Image = ((System.Drawing.Image)(resources.GetObject("buttonAñadir.Image")));
-            this.buttonAñadir.Location = new System.Drawing.Point(446, 158);
+            this.buttonAñadir.Location = new System.Drawing.Point(431, 158);
             this.buttonAñadir.Name = "buttonAñadir";
             this.buttonAñadir.Size = new System.Drawing.Size(69, 55);
             this.buttonAñadir.TabIndex = 20;
@@ -145,7 +166,7 @@
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(378, 179);
+            this.txtCantidad.Location = new System.Drawing.Point(363, 179);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(62, 20);
             this.txtCantidad.TabIndex = 17;
@@ -154,7 +175,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.Color.White;
-            this.label10.Location = new System.Drawing.Point(377, 163);
+            this.label10.Location = new System.Drawing.Point(362, 163);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(49, 13);
             this.label10.TabIndex = 16;
@@ -225,7 +246,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(377, 34);
+            this.label5.Location = new System.Drawing.Point(347, 34);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(37, 13);
             this.label5.TabIndex = 7;
@@ -233,7 +254,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(380, 51);
+            this.dateTimePicker1.Location = new System.Drawing.Point(350, 51);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(131, 20);
             this.dateTimePicker1.TabIndex = 6;
@@ -241,7 +262,7 @@
             // 
             // txtNombreCliente
             // 
-            this.txtNombreCliente.Location = new System.Drawing.Point(211, 50);
+            this.txtNombreCliente.Location = new System.Drawing.Point(195, 50);
             this.txtNombreCliente.Name = "txtNombreCliente";
             this.txtNombreCliente.Size = new System.Drawing.Size(135, 20);
             this.txtNombreCliente.TabIndex = 5;
@@ -250,7 +271,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(208, 34);
+            this.label4.Location = new System.Drawing.Point(192, 34);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 4;
@@ -302,13 +323,14 @@
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(767, 37);
+            this.button4.Location = new System.Drawing.Point(698, 37);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 89);
             this.button4.TabIndex = 21;
             this.button4.Text = "Vender";
             this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -316,7 +338,7 @@
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button5.Image = ((System.Drawing.Image)(resources.GetObject("button5.Image")));
-            this.button5.Location = new System.Drawing.Point(767, 228);
+            this.button5.Location = new System.Drawing.Point(698, 228);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(125, 96);
             this.button5.TabIndex = 22;
@@ -330,7 +352,7 @@
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
-            this.button6.Location = new System.Drawing.Point(767, 132);
+            this.button6.Location = new System.Drawing.Point(698, 132);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(125, 90);
             this.button6.TabIndex = 23;
@@ -343,18 +365,18 @@
             this.dtgFactura.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgFactura.Location = new System.Drawing.Point(12, 262);
             this.dtgFactura.Name = "dtgFactura";
-            this.dtgFactura.Size = new System.Drawing.Size(744, 146);
+            this.dtgFactura.Size = new System.Drawing.Size(661, 146);
             this.dtgFactura.TabIndex = 24;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DimGray;
             this.panel2.Controls.Add(this.pictureBox1);
-            this.panel2.Controls.Add(this.textBox8);
+            this.panel2.Controls.Add(this.txtNFactura);
             this.panel2.Controls.Add(this.label12);
-            this.panel2.Location = new System.Drawing.Point(545, 37);
+            this.panel2.Location = new System.Drawing.Point(516, 37);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(211, 219);
+            this.panel2.Size = new System.Drawing.Size(157, 219);
             this.panel2.TabIndex = 25;
             // 
             // pictureBox1
@@ -362,23 +384,24 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 20);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(205, 133);
+            this.pictureBox1.Size = new System.Drawing.Size(146, 133);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 27;
             this.pictureBox1.TabStop = false;
             // 
-            // textBox8
+            // txtNFactura
             // 
-            this.textBox8.Location = new System.Drawing.Point(51, 176);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(98, 20);
-            this.textBox8.TabIndex = 26;
+            this.txtNFactura.Location = new System.Drawing.Point(29, 174);
+            this.txtNFactura.Name = "txtNFactura";
+            this.txtNFactura.Size = new System.Drawing.Size(98, 20);
+            this.txtNFactura.TabIndex = 26;
+            this.txtNFactura.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.White;
-            this.label12.Location = new System.Drawing.Point(64, 160);
+            this.label12.Location = new System.Drawing.Point(42, 158);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(72, 13);
             this.label12.TabIndex = 25;
@@ -458,7 +481,7 @@
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.Location = new System.Drawing.Point(767, 330);
+            this.button8.Location = new System.Drawing.Point(698, 330);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(125, 86);
             this.button8.TabIndex = 33;
@@ -467,29 +490,33 @@
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // txtIva
+            // label11
             // 
-            this.txtIva.Location = new System.Drawing.Point(289, 179);
-            this.txtIva.Name = "txtIva";
-            this.txtIva.Size = new System.Drawing.Size(62, 20);
-            this.txtIva.TabIndex = 23;
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(208, 107);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(81, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Forma De Pago";
             // 
-            // label18
+            // comboBox1
             // 
-            this.label18.AutoSize = true;
-            this.label18.ForeColor = System.Drawing.Color.White;
-            this.label18.Location = new System.Drawing.Point(288, 163);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(22, 13);
-            this.label18.TabIndex = 22;
-            this.label18.Text = "Iva";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Efectivo",
+            "Tarjeta"});
+            this.comboBox1.Location = new System.Drawing.Point(211, 123);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 25;
             // 
             // FrmRegistrarVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(904, 463);
+            this.ClientSize = new System.Drawing.Size(915, 536);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txtTotal);
@@ -546,7 +573,7 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.DataGridView dtgFactura;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.TextBox txtNFactura;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox txtSubTotal;
@@ -560,5 +587,7 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox txtIva;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label11;
     }
 }
