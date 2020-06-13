@@ -26,8 +26,12 @@ namespace BLL
             try
             {
                 conexion.Open();
-                repositorio.Guardar(factura);
-                return $"Se guardaron los datos de {factura.Factura_id}  satisfactoriamente";
+                if (repositorio.BuscarFactura(factura.Factura_id) == null)
+                {
+                    repositorio.Guardar(factura);
+                    return $"Se guardaron los datos de la factura {factura.Factura_id}  satisfactoriamente";
+                }
+                return $"La factura ya existe";
             }
             catch (Exception e)
             {
@@ -36,7 +40,34 @@ namespace BLL
             finally { conexion.Close(); }
         }
 
+        public class BusquedaFacturaRespuesta
+        {
+            public bool Error { get; set; }
+            public string Mensaje { get; set; }
+            public Factura factura { get; set; }
+        }
+        public BusquedaFacturaRespuesta BuscarxFactura(string factu)
+        {
+            BusquedaFacturaRespuesta respuesta = new BusquedaFacturaRespuesta();
+            try
+            {
 
+                conexion.Open();
+                respuesta.factura = repositorio.BuscarFactura(factu);
+                conexion.Close();
+                respuesta.Mensaje = (respuesta.factura != null) ? "Se encontró la factura" : "La factura buscada no existe";
+                respuesta.Error = false;
+                return respuesta;
+            }
+            catch (Exception e)
+            {
+
+                respuesta.Mensaje = $"Error de la Aplicacion: {e.Message}";
+                respuesta.Error = true;
+                return respuesta;
+            }
+            finally { conexion.Close(); }
+        }
         public class ConsultaFcturaRespuesta
         {
             public bool Error { get; set; }

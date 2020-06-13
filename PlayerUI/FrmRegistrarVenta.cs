@@ -24,11 +24,13 @@ namespace PlayerUI
         FacturaService facturaService;
         DetalleFacturaService detalleFacturaService;
         Productos productos;
+        Factura factura;
         DetalleFactura detalleFatura;
         List<Factura> LisFactura;
         List<DetalleFactura> LisDetalle = new List<DetalleFactura>();
         List<Productos> LisDetalleAux;
         List<Factura> LisFacturaAux;
+        int i = 1;
         public FrmRegistrarVenta()
         {
             InitializeComponent();
@@ -102,7 +104,7 @@ namespace PlayerUI
 
                 if (respuesta.cliente != null)
                 {
-                    NFacturas();
+                    
                     txtNombreCliente.Text = respuesta.cliente.PrimerNombre;
                     MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -129,6 +131,7 @@ namespace PlayerUI
                 N_Factura++;
             }
             txtNFactura.Text = Convert.ToString(N_Factura);
+            i = N_Factura;
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -187,12 +190,14 @@ namespace PlayerUI
             double Iva = 0.19;
             if (codigo != "")
             {
+                DetalleFactura detalle = MapearProductos();
                 foreach (var item in LisDetalleAux)
                 {
                     if (item.Productos_id == codigo)
                     {
+                        
 
-                        DetalleFactura detalle = MapearProductos();
+                        
                         detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
                         if (item.Iva == 19)
                         {
@@ -203,12 +208,16 @@ namespace PlayerUI
                             detalle.productos.Iva = 0;
                         }
                         detalle.productos.Precio_venta = item.Precio_venta;
+                        detalle.productos.Nombre = item.Nombre;
+                        detalle.productos.Tipo = item.Tipo;
                         detalle.productos.Productos_id = item.Productos_id;
                         detalle.CalcularSubTotal();
                         detalle.CalcularIva();
                         detalle.CalcularTotal();
-                        detalle.productos.DescontarExistencia(detalle.Cantidad);
-
+                        detalle.CodigoFactura = txtNFactura.Text;
+                        detalle.DetalleFac_id = txtNFactura.Text + i;
+                        detalle.Total = detalle.Total;
+                        i++;
                         LisDetalle.Add(detalle);
                         
 
@@ -256,6 +265,7 @@ namespace PlayerUI
         private void FrmRegistrarVenta_Load(object sender, EventArgs e)
         {
             agregarTabla();
+            NFacturas();
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
@@ -265,55 +275,69 @@ namespace PlayerUI
 
         private void MapearListDetalle(DetalleFactura detalle, int i)
         {
+       
             try
             {
-                detalle.DetalleFac_id= LisDetalle[i].DetalleFac_id;
+                detalle.DetalleFac_id= LisDetalle[i].DetalleFac_id ;
+                detalle.productos.Productos_id = LisDetalle[i].productos.Productos_id;
+                detalle.productos.Nombre= LisDetalle[i].productos.Nombre;
+                detalle.productos.Tipo = LisDetalle[i].productos.Tipo;
+                detalle.productos.Precio_venta = LisDetalle[i].productos.Precio_venta;
                 detalle.Cantidad = LisDetalle[i].Cantidad;
                 detalle.Total= LisDetalle[i].Total;
                 detalle.CodigoFactura = LisDetalle[i].CodigoFactura;
-                detalle.productos.Productos_id = LisDetalle[i].productos.Productos_id;
+
             }
             catch (Exception) { }
         }
 
-        private void MapearListFactura(Factura factura, int i)
+        private Factura MapearFactura()
         {
-            try
-            {
-                factura.Factura_id = LisFacturaAux[i].Factura_id;
-            factura.Totales = LisFacturaAux[i].Totales;
-            factura.Fecha = LisFacturaAux[i].Fecha;
-            factura.cliente.Identificacion= LisFacturaAux[i].Factura_id;
-            factura.Factura_id = LisFacturaAux[i].cliente.Identificacion;
-            factura.FormaPago= LisFacturaAux[i].FormaPago;
-            }
-            catch (Exception) { }
+                factura = new Factura();
+                factura.Factura_id = txtNFactura.Text;
+                factura.Totales = Convert.ToDecimal(txtTotal.Text);
+                factura.Fecha = DateTime.Parse(fechaDatetime.Text.ToString());
+                factura.cliente.Identificacion = txtIdentificacion.Text;
+                factura.FormaPago = comboFPago.Text;
+                return factura;
         }
         private void button4_Click(object sender, EventArgs e)
         {
             try
             {
-                Factura factura = new Factura();
-                for (int i = 0; i <= LisFacturaAux.Count; i++)
-                {
-                    MapearListFactura(factura, i);
-                   facturaService.Guardar(factura);
-                }
+                Factura factura = MapearFactura();
+                string mensaje = facturaService.Guardar(factura);
+               
+
                 DetalleFactura detalle = new DetalleFactura();
                 for (int i = 0; i <= LisDetalle.Count; i++)
                 {
                     MapearListDetalle(detalle, i);
                     detalleFacturaService.Guardar(detalle);
                 }
-
-                MessageBox.Show( "Resultado de guardar");
-
+                MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                NFacturas();
+                LimpiarFactura();
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show("Asegúrese de establecer una lista de compras. " + ex.Message, "Resultado de guardar", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             }
+            
+        }
+
+        private void LimpiarFactura()
+        {
+            txtIdentificacion.Text = "";
+            txtNombreCliente.Text = "";
+            comboFPago.Text = "...";
+            txtSubTotal.Text = "";
+            txtTotal.Text = "";
+            txtIvaTotall.Text = "";
+            dtgFactura.Columns.Clear();
+            agregarTabla();
+           //var LisDetalle = new List<DetalleFactura>(); LisDetalle.Clear();
         }
   
     }

@@ -158,14 +158,14 @@ commit
 
 
 CREATE OR REPLACE PACKAGE PKG_INSERTAR_DETALLEFACTURA AS
-PROCEDURE INSERTAR_DETALLEFACTURA(DetalleFac_id IN varchar2,Cantidad IN int ,Costo IN number,Factura_id IN Varchar2,Producto_id IN Varchar2);
+PROCEDURE INSERTAR_DETALLEFACTURA(DetalleFac_id IN varchar2,Producto_id IN Varchar2,Nombre IN Varchar2,Tipo IN Varchar2,Precio_venta IN Varchar2,Cantidad IN int ,Total IN number,Factura_id IN Varchar2);
 END PKG_INSERTAR_DETALLEFACTURA;
 
 create OR REPLACE PACKAGE BODY PKG_INSERTAR_DETALLEFACTURA AS
-PROCEDURE INSERTAR_DETALLEFACTURA(DetalleFac_id IN varchar2,Cantidad IN int ,Costo IN number,Factura_id IN Varchar2,Producto_id IN Varchar2)
+PROCEDURE INSERTAR_DETALLEFACTURA(DetalleFac_id IN varchar2,Producto_id IN Varchar2,Nombre IN Varchar2,Tipo IN Varchar2,Precio_venta IN Varchar2,Cantidad IN int ,Total IN number,Factura_id IN Varchar2)
 AS
 BEGIN
-INSERT INTO DETALLEFACTURA VALUES(DetalleFac_id ,Cantidad ,Costo,Factura_id ,Producto_id  );
+INSERT INTO DETALLEFACTURA VALUES(DetalleFac_id ,Producto_id,Nombre,Tipo,Precio_venta,Cantidad ,Total ,Factura_id );
 END INSERTAR_DETALLEFACTURA;
 END PKG_INSERTAR_DETALLEFACTURA;
 
@@ -178,7 +178,6 @@ BEGIN
 OPEN CURSORMEMORIA FOR SELECT *FROM FACTURA;
 END;
 END PKG_CONSULTAR_DETALLEFACTURA;
-commit
-
-
+commit;
+select *from productos;
 

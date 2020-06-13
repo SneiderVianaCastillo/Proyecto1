@@ -31,6 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmRegistrarVenta));
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.fechaDatetime = new System.Windows.Forms.DateTimePicker();
+            this.comboFPago = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.txtIva = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.buttonBuscarProducto = new System.Windows.Forms.Button();
@@ -45,14 +48,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.txtNombreCliente = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.buttonBuscarCliente = new System.Windows.Forms.Button();
             this.txtIdentificacion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonGuardar = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.dtgFactura = new System.Windows.Forms.DataGridView();
@@ -68,8 +70,6 @@
             this.label17 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgFactura)).BeginInit();
             this.panel2.SuspendLayout();
@@ -92,7 +92,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Controls.Add(this.comboBox1);
+            this.panel1.Controls.Add(this.fechaDatetime);
+            this.panel1.Controls.Add(this.comboFPago);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.txtIva);
             this.panel1.Controls.Add(this.label18);
@@ -108,7 +109,6 @@
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.txtNombreCliente);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.buttonBuscarCliente);
@@ -120,6 +120,37 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(498, 219);
             this.panel1.TabIndex = 2;
+            // 
+            // fechaDatetime
+            // 
+            this.fechaDatetime.CustomFormat = "dd - MM - yyyy";
+            this.fechaDatetime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.fechaDatetime.Location = new System.Drawing.Point(350, 51);
+            this.fechaDatetime.Name = "fechaDatetime";
+            this.fechaDatetime.Size = new System.Drawing.Size(134, 20);
+            this.fechaDatetime.TabIndex = 29;
+            // 
+            // comboFPago
+            // 
+            this.comboFPago.FormattingEnabled = true;
+            this.comboFPago.Items.AddRange(new object[] {
+            "...",
+            "Efectivo",
+            "Tarjeta"});
+            this.comboFPago.Location = new System.Drawing.Point(211, 123);
+            this.comboFPago.Name = "comboFPago";
+            this.comboFPago.Size = new System.Drawing.Size(121, 21);
+            this.comboFPago.TabIndex = 25;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.Color.White;
+            this.label11.Location = new System.Drawing.Point(208, 107);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(81, 13);
+            this.label11.TabIndex = 24;
+            this.label11.Text = "Forma De Pago";
             // 
             // txtIva
             // 
@@ -252,14 +283,6 @@
             this.label5.TabIndex = 7;
             this.label5.Text = "Fecha";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(350, 51);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(131, 20);
-            this.dateTimePicker1.TabIndex = 6;
-            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            // 
             // txtNombreCliente
             // 
             this.txtNombreCliente.Location = new System.Drawing.Point(195, 50);
@@ -317,20 +340,20 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "DATOS DE VENTA";
             // 
-            // button4
+            // buttonGuardar
             // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(698, 37);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(125, 89);
-            this.button4.TabIndex = 21;
-            this.button4.Text = "Vender";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.buttonGuardar.BackColor = System.Drawing.Color.Transparent;
+            this.buttonGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGuardar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonGuardar.Image = ((System.Drawing.Image)(resources.GetObject("buttonGuardar.Image")));
+            this.buttonGuardar.Location = new System.Drawing.Point(698, 37);
+            this.buttonGuardar.Name = "buttonGuardar";
+            this.buttonGuardar.Size = new System.Drawing.Size(125, 89);
+            this.buttonGuardar.TabIndex = 21;
+            this.buttonGuardar.Text = "Vender";
+            this.buttonGuardar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonGuardar.UseVisualStyleBackColor = false;
+            this.buttonGuardar.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -490,27 +513,6 @@
             this.button8.UseVisualStyleBackColor = false;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.ForeColor = System.Drawing.Color.White;
-            this.label11.Location = new System.Drawing.Point(208, 107);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(81, 13);
-            this.label11.TabIndex = 24;
-            this.label11.Text = "Forma De Pago";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Efectivo",
-            "Tarjeta"});
-            this.comboBox1.Location = new System.Drawing.Point(211, 123);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 25;
-            // 
             // FrmRegistrarVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,7 +531,7 @@
             this.Controls.Add(this.dtgFactura);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Name = "FrmRegistrarVenta";
@@ -550,7 +552,6 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox txtNombreCliente;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonBuscarCliente;
@@ -568,7 +569,7 @@
         private System.Windows.Forms.TextBox txtCodigo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonAñadir;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonGuardar;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.DataGridView dtgFactura;
@@ -587,7 +588,8 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.TextBox txtIva;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboFPago;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DateTimePicker fechaDatetime;
     }
 }

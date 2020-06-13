@@ -22,11 +22,11 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR_PRODUCTOS.INSERTAR_PRODUCTOS";
+                command.CommandText = "PKG_INSERTAR_FACTURA.INSERTAR_FACTURA";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Factura_id", OracleDbType.Varchar2).Value = factura.Factura_id;
                 command.Parameters.Add("Totales", OracleDbType.Varchar2).Value = factura.Totales;
-                command.Parameters.Add("Fecha", OracleDbType.Varchar2).Value = factura.Fecha;
+                command.Parameters.Add("Fecha", OracleDbType.Date).Value = factura.Fecha;
                 command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = factura.cliente.Identificacion;
                 command.Parameters.Add("FormaDePago", OracleDbType.Varchar2).Value = factura.FormaPago;
                 command.ExecuteNonQuery();
@@ -34,7 +34,19 @@ namespace DAL
             }
         }
 
-
+        public Factura BuscarFactura(string factu)
+        {
+            OracleDataReader dataReader;
+            using (var command = _connection.CreateCommand())
+            {
+                command.CommandText = "select Factura_id,Totales,Fecha,Cliente_id,FormaDePago from Factura  where Factura_id=:Factura_id";
+                command.Parameters.Add("Factura_id", OracleDbType.Varchar2).Value = factu;
+                dataReader = command.ExecuteReader();
+                dataReader.Read();
+                Factura factura = DataReaderMapearToFactura(dataReader);
+                return factura;
+            }
+        }
 
         private Factura DataReaderMapearToFactura(OracleDataReader dataReader)
         {

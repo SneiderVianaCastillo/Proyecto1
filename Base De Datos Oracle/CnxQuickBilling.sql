@@ -91,8 +91,11 @@ Cliente_id varchar2(12) not null,
 FormaDePago varchar2(12) not null
 );
 
-
+delete from Factura;
 select *from Factura;
+select *from DetalleFactura;
+delete from DetalleFactura;
+commit
   /*Creamos la llave primaria de Factura*/
  ALTER TABLE Factura ADD constraint pk_Factura_id PRIMARY KEY (Factura_id);
  /*Creamos la llave Forane de Factura*/
@@ -105,12 +108,16 @@ select *from Factura;
 create table DetalleFactura
 (
 DetalleFac_id varchar2(12) not null,
+Producto_id varchar2(12) not null,
+Nombre varchar2(12) not null,
+Tipo varchar2(12) not null,
+Precio_venta number(15,2),
 Cantidad int not null,
-Costo  number(15,2) not null,
-Factura_id varchar2(12) not null,
-Producto_id varchar2(12) not null
+Total  number(15,2) not null,
+Factura_id varchar2(12) not null
 );
 
+DROP TABLE DetalleFactura CASCADE CONSTRAINT PURGE;
   select * from DetalleFactura;
  ALTER TABLE DetalleFactura ADD constraint pk_DetalleFac_id PRIMARY KEY (DetalleFac_id);
  
@@ -121,9 +128,9 @@ Producto_id varchar2(12) not null
   
     ALTER TABLE DetalleFactura
   ADD CONSTRAINT FK_Productos_id
-  FOREIGN KEY (Productos_id)
+  FOREIGN KEY (Producto_id)
   REFERENCES Productos(Productos_id);
-
+commit;
 /*Insertamos registros a la tabla cliente*/
 INSERT INTO cliente values('00001','ana','sofia','vega','ochoa','kenedy','valledupar','3','35-45','321148974','anasofia03@gmail.com');
 INSERT INTO cliente values('00002','JHOAN','MILEYDIS','ROJAS','ALVAREZ','SANTOS','SANTA MARTA','5','45-75','3206578','jhon2039@gmail.com');
@@ -210,7 +217,7 @@ DECLARE
 BEGIN
      update productos
      set Existencia = Existencia - :new.cantidad
-     where Productos_id = :new.Productos_id;
+     where Productos_id = :new.Producto_id;
 
 END;
 /
