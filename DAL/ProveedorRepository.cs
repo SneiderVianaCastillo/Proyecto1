@@ -22,7 +22,7 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR_PROV.INSERTAR_PROVEEDOR";
+                command.CommandText = "PKG_PROVEEDOR.SP_INSERTAR_PROVEEDOR";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Rut", OracleDbType.Varchar2).Value = proveedor.Rut;
                 command.Parameters.Add("Nombre_Comercial", OracleDbType.Varchar2).Value = proveedor.NombreComercial;
@@ -61,7 +61,7 @@ namespace DAL
         {
             using (var comando = _connection.CreateCommand())
             {
-                comando.CommandText = "PKG_CONSULTAR_PROV.CONSULTAR_PROVEEDOR";
+                comando.CommandText = "PKG_PROVEEDOR.SP_CONSULTAR_PROVEEDOR";
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("CURSORMEMORIA", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 using (var reader = comando.ExecuteReader())
@@ -82,12 +82,11 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update Proveedor set Rut=:Rut,Nombre_Comercial=:NombreComercial,Telefono=:Telefono
-                                        where Rut=:Rut";
-
-                command.Parameters.Add("Rut", OracleDbType.Varchar2).Value = proveedor.Rut;
-                command.Parameters.Add("Nombre_Comercial", OracleDbType.Varchar2).Value = proveedor.NombreComercial;
-                command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = proveedor.Telefono;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_PROVEEDOR.SP_MODIFICAR_PROVEEDOR";
+                command.Parameters.Add("@xRut", OracleDbType.Varchar2).Value = proveedor.Rut;
+                command.Parameters.Add("@xNombre_Comercial", OracleDbType.Varchar2).Value = proveedor.NombreComercial;
+                command.Parameters.Add("@xSegundoNombre", OracleDbType.Varchar2).Value = proveedor.Telefono;
 
 
                 OracleTransaction transaction = _connection.BeginTransaction();
@@ -100,7 +99,8 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Delete from Proveedor where Rut=:Rut";
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_PROVEEDOR.SP_ELIMINAR_PROVEEDOR";
                 command.Parameters.Add("Rut", OracleDbType.Varchar2).Value = proveedor.Rut;
                 var filas = command.ExecuteNonQuery();
                 return filas;

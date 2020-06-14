@@ -61,6 +61,7 @@ modelo VARCHAR2(15)  null,
 cantidad int not null
 );
 
+select *from productos;
   alter table Productos
   modify Iva double  null;
 delete from productos;

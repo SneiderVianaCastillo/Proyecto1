@@ -1,15 +1,25 @@
 
-CREATE OR REPLACE PACKAGE PKG_INSERTAR AS
-PROCEDURE INSERTAR_CLIENTE(Cliente_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,
+CREATE OR REPLACE PACKAGE PKG_CLIENTE AS
+PROCEDURE SP_INSERTAR_CLIENTE(Cliente_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,
 Barrio IN varchar2,
 Ciudad IN varchar2,
 Comuna IN varchar2,
 N_Casa IN varchar2,
 Telefono IN varchar,
 Email IN VARCHAR2);
-END PKG_INSERTAR;
-create OR REPLACE PACKAGE BODY PKG_INSERTAR AS
-PROCEDURE INSERTAR_CLIENTE(Cliente_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,
+PROCEDURE SP_ELIMINAR_CLIENTE(Identificacion varchar2);
+PROCEDURE SP_MODIFICAR_CLIENTE(xCliente_id varchar2 ,XPrimerNombre  varchar2,xSegundoNombre varchar2,xPrimerApellido  varchar2,xSegundoApellido varchar2,
+xBarrio  varchar2,
+xCiudad varchar2,
+xComuna  varchar2,
+xN_Casa  varchar2,
+xTelefono  varchar,
+xEmail VARCHAR2);
+PROCEDURE SP_CONSULTAR_CLIENTE(CURSORMEMORIA OUT SYS_REFCURSOR);
+END PKG_CLIENTE;
+CREATE OR REPLACE PACKAGE BODY PKG_CLIENTE 
+AS
+PROCEDURE SP_INSERTAR_CLIENTE(Cliente_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,
 Barrio IN varchar2,
 Ciudad IN varchar2,
 Comuna IN varchar2,
@@ -20,36 +30,66 @@ AS
 BEGIN
 INSERT INTO CLIENTE VALUES(Cliente_id  ,PrimerNombre ,SegundoNombre ,PrimerApellido,SegundoApellido ,Barrio ,Ciudad ,
 Comuna ,N_Casa,Telefono,Email);
-END INSERTAR_CLIENTE;
-END PKG_INSERTAR;
+END SP_INSERTAR_CLIENTE;
 
-CREATE OR REPLACE PACKAGE PKG_CONSULTAR AS
-PROCEDURE CONSULTAR_CLIENTE(CURSORMEMORIA OUT SYS_REFCURSOR);
-END PKG_CONSULTAR;
-CREATE OR REPLACE PACKAGE BODY PKG_CONSULTAR AS
-PROCEDURE CONSULTAR_CLIENTE(CURSORMEMORIA OUT SYS_REFCURSOR) AS
+PROCEDURE SP_MODIFICAR_CLIENTE(xCliente_id varchar2 ,XPrimerNombre  varchar2,xSegundoNombre varchar2,xPrimerApellido  varchar2,xSegundoApellido varchar2,
+xBarrio  varchar2,
+xCiudad varchar2,
+xComuna  varchar2,
+xN_Casa  varchar2,
+xTelefono  varchar,
+xEmail VARCHAR2)
+AS
+BEGIN
+UPDATE CLIENTE
+SET PrimerNombre= xPrimerNombre,SegundoNombre= xSegundoNombre,PrimerApellido= xPrimerApellido,SegundoApellido= xSegundoApellido,
+Barrio= xBarrio,Ciudad= xCiudad,Comuna= xComuna ,N_Casa= xN_Casa ,Telefono=xTelefono ,Email= xEmail
+WHERE Cliente_id=xCliente_id;
+END SP_MODIFICAR_CLIENTE;
+
+PROCEDURE SP_ELIMINAR_CLIENTE(Identificacion varchar2)
+AS
+BEGIN
+DELETE FROM CLIENTE where Cliente_id = Identificacion;
+END SP_ELIMINAR_CLIENTE;
+
+PROCEDURE SP_CONSULTAR_CLIENTE(CURSORMEMORIA OUT SYS_REFCURSOR) 
+AS
 BEGIN
 OPEN CURSORMEMORIA FOR SELECT *FROM CLIENTE;
 END;
-END PKG_CONSULTAR;
-commit
 
-SELECT * FROM trabajador;
+END PKG_CLIENTE;
+
+COMMIT;
 
 
-CREATE OR REPLACE PACKAGE PKG_INSERTAR_TRAB AS
-PROCEDURE INSERTAR_TRABAJADOR(Trabajador_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,Telefono IN varchar,
+
+
+
+CREATE OR REPLACE PACKAGE PKG_TRABAJADOR AS
+PROCEDURE SP_INSERTAR_TRABAJADOR(Trabajador_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,Telefono IN varchar,
 Cargo IN varchar2,
 Barrio IN varchar2,
 Ciudad IN varchar2,
 Comuna IN varchar2,
 N_Casa IN varchar2,
 Email IN VARCHAR2);
-END PKG_INSERTAR_TRAB;
+PROCEDURE SP_ELIMINAR_TRABAJADOR(Identificacion varchar2);
+PROCEDURE SP_MODIFICAR_TRABAJADOR(xTrabajador_id varchar2 ,XPrimerNombre  varchar2,xSegundoNombre varchar2,xPrimerApellido  varchar2,xSegundoApellido varchar2,
+xBarrio  varchar2,
+xCiudad varchar2,
+xComuna  varchar2,
+xN_Casa  varchar2,
+xTelefono  varchar,
+xCargo varchar2,
+xEmail VARCHAR2);
+PROCEDURE SP_CONSULTAR_TRABAJADOR(CURSORMEMORIA OUT SYS_REFCURSOR);
+END PKG_TRABAJADOR;
 
-create OR REPLACE PACKAGE BODY PKG_INSERTAR_TRAB AS
-PROCEDURE INSERTAR_TRABAJADOR(Trabajador_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,
-Telefono IN varchar,
+CREATE OR REPLACE PACKAGE BODY PKG_TRABAJADOR 
+AS
+PROCEDURE SP_INSERTAR_TRABAJADOR(Trabajador_id IN varchar2 ,PrimerNombre IN varchar2,SegundoNombre IN varchar2,PrimerApellido IN varchar2,SegundoApellido IN varchar2,Telefono IN varchar,
 Cargo IN varchar2,
 Barrio IN varchar2,
 Ciudad IN varchar2,
@@ -58,53 +98,112 @@ N_Casa IN varchar2,
 Email IN VARCHAR2)
 AS
 BEGIN
-INSERT INTO TRABAJADOR VALUES(Trabajador_id,PrimerNombre ,SegundoNombre ,PrimerApellido,SegundoApellido ,Telefono,Cargo,Barrio ,Ciudad ,
+INSERT INTO TRABAJADOR  VALUES(Trabajador_id,PrimerNombre ,SegundoNombre ,PrimerApellido,SegundoApellido ,Telefono,Cargo,Barrio ,Ciudad ,
 Comuna ,N_Casa,Email);
-END INSERTAR_TRABAJADOR;
-END PKG_INSERTAR_TRAB;
+END SP_INSERTAR_TRABAJADOR;
 
-CREATE OR REPLACE PACKAGE PKG_CONSULTAR_TRAB AS
-PROCEDURE CONSULTAR_TRABAJADOR(CURSORMEMORIA1 OUT SYS_REFCURSOR);
-END PKG_CONSULTAR_TRAB;
-CREATE OR REPLACE PACKAGE BODY PKG_CONSULTAR_TRAB AS
-PROCEDURE CONSULTAR_TRABAJADOR(CURSORMEMORIA1 OUT SYS_REFCURSOR) AS
+PROCEDURE SP_MODIFICAR_TRABAJADOR (xTrabajador_id varchar2 ,XPrimerNombre  varchar2,xSegundoNombre varchar2,xPrimerApellido  varchar2,xSegundoApellido varchar2,
+xBarrio  varchar2,
+xCiudad varchar2,
+xComuna  varchar2,
+xN_Casa  varchar2,
+xTelefono  varchar,
+xCargo varchar2,
+xEmail VARCHAR2)
+AS
 BEGIN
-OPEN CURSORMEMORIA1 FOR SELECT *FROM TRABAJADOR;
+UPDATE TRABAJADOR
+SET PrimerNombre= xPrimerNombre,SegundoNombre= xSegundoNombre,PrimerApellido= xPrimerApellido,SegundoApellido= xSegundoApellido,
+Barrio= xBarrio,Ciudad= xCiudad,Comuna= xComuna ,N_Casa= xN_Casa ,Telefono=xTelefono,Cargo=xCargo ,Email= xEmail
+WHERE Trabajador_id=xTrabajador_id;
+END SP_MODIFICAR_TRABAJADOR;
+
+PROCEDURE SP_ELIMINAR_TRABAJADOR(Identificacion varchar2)
+AS
+BEGIN
+DELETE FROM TRABAJADOR where Trabajador_id = Identificacion;
+END SP_ELIMINAR_TRABAJADOR;
+
+PROCEDURE SP_CONSULTAR_TRABAJADOR(CURSORMEMORIA OUT SYS_REFCURSOR) 
+AS
+BEGIN
+OPEN CURSORMEMORIA FOR SELECT *FROM TRABAJADOR;
 END;
-END PKG_CONSULTAR_TRAB;
+
+END PKG_TRABAJADOR;
+
+commit;
 
 
-CREATE OR REPLACE PACKAGE PKG_INSERTAR_PROV AS
-PROCEDURE INSERTAR_PROVEEDOR(Rut IN varchar2 ,Nombre_Comercial IN varchar2,Telefono IN varchar2 );
-END PKG_INSERTAR_PROV;
-create OR REPLACE PACKAGE BODY PKG_INSERTAR_PROV AS
-PROCEDURE INSERTAR_PROVEEDOR(Rut IN varchar2 ,Nombre_Comercial IN varchar2,Telefono IN varchar2)
+
+
+
+CREATE OR REPLACE PACKAGE PKG_PROVEEDOR AS
+PROCEDURE SP_INSERTAR_PROVEEDOR(Rut IN varchar2 ,Nombre_Comercial IN varchar2,Telefono IN varchar2 );
+PROCEDURE SP_ELIMINAR_PROVEEDOR(Rut varchar2);
+PROCEDURE c(xRut varchar2 ,xNombre_Comercial varchar2,xTelefono  varchar2 );
+PROCEDURE SP_CONSULTAR_PROVEEDOR(CURSORMEMORIA OUT SYS_REFCURSOR);
+END PKG_PROVEEDOR;
+
+CREATE OR REPLACE PACKAGE BODY PKG_PROVEEDOR 
+AS
+PROCEDURE SP_INSERTAR_PROVEEDOR (Rut IN varchar2 ,Nombre_Comercial IN varchar2,Telefono IN varchar2)
 AS
 BEGIN
 INSERT INTO PROVEEDOR VALUES(Rut ,Nombre_Comercial,Telefono);
-END INSERTAR_PROVEEDOR;
-END PKG_INSERTAR_PROV;
+END SP_INSERTAR_PROVEEDOR;
 
-CREATE OR REPLACE PACKAGE PKG_CONSULTAR_PROV AS
-PROCEDURE CONSULTAR_PROVEEDOR(CURSORMEMORIA OUT SYS_REFCURSOR);
-END PKG_CONSULTAR_PROV;
-CREATE OR REPLACE PACKAGE BODY PKG_CONSULTAR_PROV AS
-PROCEDURE CONSULTAR_PROVEEDOR(CURSORMEMORIA OUT SYS_REFCURSOR) AS
+PROCEDURE SP_MODIFICAR_PROVEEDOR(xRut varchar2 ,xNombre_Comercial varchar2,xTelefono varchar2)
+AS
+BEGIN
+UPDATE PROVEEDOR
+SET Rut=xRut ,Nombre_Comercial=xNombre_Comercial,Telefono=xTelefono 
+WHERE Rut=xRut;
+END SP_MODIFICAR_PROVEEDOR;
+
+PROCEDURE SP_ELIMINAR_PROVEEDOR(Rut varchar2)
+AS
+BEGIN
+DELETE FROM PROVEEDOR where Rut = Rut;
+END SP_ELIMINAR_PROVEEDOR;
+
+PROCEDURE SP_CONSULTAR_PROVEEDOR(CURSORMEMORIA OUT SYS_REFCURSOR) 
+AS
 BEGIN
 OPEN CURSORMEMORIA FOR SELECT *FROM PROVEEDOR;
 END;
-END PKG_CONSULTAR_PROV;
 
-CREATE OR REPLACE PACKAGE PKG_INSERTAR_PRODUCTOS AS
+END PKG_PROVEEDOR;
+
+commit;
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE PACKAGE PKG_PRODUCTOS AS
 PROCEDURE INSERTAR_PRODUCTOS(Productos_id IN varchar2 ,nombre IN varchar2,Descripcion IN varchar2,precio_venta IN number,precio_costo IN number,
 Iva IN number,
 tipo IN varchar2,
 modelo IN varchar2,
 cantidad IN int,
 Existencia IN int);
-END PKG_INSERTAR_PRODUCTOS;
+PROCEDURE SP_ELIMINAR_PRODUCTOS(xProductos_id varchar2);
+PROCEDURE SP_MODIFICAR_PRODUCTOS(xProductos_id  varchar2 ,xnombre varchar2,xDescripcion  varchar2,xprecio_venta  number,xprecio_costo number,
+xIva  number,
+xtipo  varchar2,
+xmodelo  varchar2,
+xcantidad  int,
+xExistencia  int);
+PROCEDURE SP_CONSULTAR_PRODUCTOS(CURSORMEMORIA OUT SYS_REFCURSOR);
+END PKG_PRODUCTOS;
 
-create OR REPLACE PACKAGE BODY PKG_INSERTAR_PRODUCTOS AS
+CREATE OR REPLACE PACKAGE BODY PKG_PRODUCTOS AS
 PROCEDURE INSERTAR_PRODUCTOS(Productos_id IN varchar2 ,nombre IN varchar2,Descripcion IN varchar2,precio_venta IN number,precio_costo IN number,
 Iva IN number,
 tipo IN varchar2,
@@ -115,18 +214,41 @@ AS
 BEGIN
 INSERT INTO PRODUCTOS VALUES(Productos_id ,nombre,Descripcion ,precio_venta ,precio_costo,Iva ,tipo,modelo,cantidad,Existencia);
 END INSERTAR_PRODUCTOS;
-END PKG_INSERTAR_PRODUCTOS;
 
+PROCEDURE SP_MODIFICAR_PRODUCTOS (xProductos_id  varchar2 ,xnombre varchar2,xDescripcion  varchar2,xprecio_venta  number,xprecio_costo number,
+xIva  number,
+xtipo  varchar2,
+xmodelo  varchar2,
+xcantidad  int,
+xExistencia  int)
+AS
+BEGIN
+UPDATE TRABAJADOR
+SET Productos_id = xProductos_id,Nombre=xnombre,Descripcion= xDescripcion,Precio_venta =xprecio_venta,Precio_costo=xprecio_costo,Iva=xIva ,Tipo=xtipo,Modelo=xmodelo,Cantidad=xcantidad,Existencia=xExistencia
+WHERE Productos_id= xProductos_id;
+END SP_MODIFICAR_PRODUCTOS;
 
-CREATE OR REPLACE PACKAGE PKG_CONSULTAR_PRODUCTOS AS
-PROCEDURE CONSULTAR_PRODUCTOS(CURSORMEMORIA OUT SYS_REFCURSOR);
-END PKG_CONSULTAR_PRODUCTOS;
-CREATE OR REPLACE PACKAGE BODY PKG_CONSULTAR_PRODUCTOS AS
-PROCEDURE CONSULTAR_PRODUCTOS(CURSORMEMORIA OUT SYS_REFCURSOR) AS
+PROCEDURE SP_CONSULTAR_PRODUCTOS(CURSORMEMORIA OUT SYS_REFCURSOR) AS
 BEGIN
 OPEN CURSORMEMORIA FOR SELECT *FROM PRODUCTOS;
 END;
-END PKG_CONSULTAR_PRODUCTOS;
+
+PROCEDURE SP_ELIMINAR_PRODUCTOS(xProductos_id varchar2)
+AS
+BEGIN
+DELETE FROM PRODUCTOS where Productos_id = xProductos_id;
+END SP_ELIMINAR_PRODUCTOS;
+
+END PKG_PRODUCTOS;
+
+
+
+
+
+
+
+
+
 commit
 
 
@@ -175,7 +297,7 @@ END PKG_CONSULTAR_DETALLEFACTURA;
 CREATE OR REPLACE PACKAGE BODY PKG_CONSULTAR_DETALLEFACTURA AS
 PROCEDURE CONSULTAR_DETALLEFACTURA(CURSORMEMORIA OUT SYS_REFCURSOR) AS
 BEGIN
-OPEN CURSORMEMORIA FOR SELECT *FROM FACTURA;
+OPEN CURSORMEMORIA FOR SELECT *FROM DETALLEFACTURA;
 END;
 END PKG_CONSULTAR_DETALLEFACTURA;
 commit;

@@ -23,7 +23,7 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR.INSERTAR_CLIENTE";
+                command.CommandText = "PKG_CLIENTE.SP_INSERTAR_CLIENTE";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
@@ -79,7 +79,7 @@ namespace DAL
         {
             using (var comando = _connection.CreateCommand())
             {
-                comando.CommandText = "PKG_CONSULTAR.CONSULTAR_CLIENTE";
+                comando.CommandText = "PKG_CLIENTE.SP_CONSULTAR_CLIENTE";
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("CURSORMEMORIA", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 using (var reader = comando.ExecuteReader())
@@ -99,8 +99,10 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Delete from cliente where Cliente_id=:Identificacion";
-                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_CLIENTE.SP_ELIMINAR_CLIENTE";
+
+                command.Parameters.Add("@cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
                 var filas = command.ExecuteNonQuery();
                 return filas;
             }
@@ -110,22 +112,20 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update cliente set Cliente_id=:Identificacion,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
-                PrimerApellido=:PrimerApellido, SegundoApellido=:SegundoApellido,Barrio=:Barrio,Ciudad=:Ciudad,
-                Comuna=:Comuna,N_Casa=:N_Casa,Telefono=:Telefono,Email=:Email
-                                        where Cliente_id=:Identificacion";
-
-                command.Parameters.Add("Cliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
-                command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
-                command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
-                command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = cliente.PrimerApellido;
-                command.Parameters.Add("SegundoApellido", OracleDbType.Varchar2).Value = cliente.SegundoApellido;
-                command.Parameters.Add("Barrio", OracleDbType.Varchar2).Value = cliente.Barrio;
-                command.Parameters.Add("Ciudad", OracleDbType.Varchar2).Value = cliente.Ciudad;
-                command.Parameters.Add("Comuna", OracleDbType.Varchar2).Value = cliente.Comuna;
-                command.Parameters.Add("N_Casa", OracleDbType.Varchar2).Value = cliente.N_Casa;
-                command.Parameters.Add("Telefono", OracleDbType.Varchar2).Value = cliente.Telefono;
-                command.Parameters.Add("Email", OracleDbType.Varchar2).Value = cliente.Email;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_CLIENTE.SP_MODIFICAR_CLIENTE";
+ 
+                command.Parameters.Add("@xCliente_id", OracleDbType.Varchar2).Value = cliente.Identificacion;
+                command.Parameters.Add("@xPrimerNombre", OracleDbType.Varchar2).Value = cliente.PrimerNombre;
+                command.Parameters.Add("@xSegundoNombre", OracleDbType.Varchar2).Value = cliente.SegundoNombre;
+                command.Parameters.Add("@xPrimerApellido", OracleDbType.Varchar2).Value = cliente.PrimerApellido;
+                command.Parameters.Add("@xSegundoApellido", OracleDbType.Varchar2).Value = cliente.SegundoApellido;
+                command.Parameters.Add("@xBarrio", OracleDbType.Varchar2).Value = cliente.Barrio;
+                command.Parameters.Add("@xCiudad", OracleDbType.Varchar2).Value = cliente.Ciudad;
+                command.Parameters.Add("@xComuna", OracleDbType.Varchar2).Value = cliente.Comuna;
+                command.Parameters.Add("@xN_Casa", OracleDbType.Varchar2).Value = cliente.N_Casa;
+                command.Parameters.Add("@xTelefono", OracleDbType.Varchar2).Value = cliente.Telefono;
+                command.Parameters.Add("@xEmail", OracleDbType.Varchar2).Value = cliente.Email;
 
 
                 OracleTransaction transaction = _connection.BeginTransaction();

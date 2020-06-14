@@ -13,7 +13,6 @@ namespace Entity
         public DateTime Fecha { get; set; }
         public string FormaPago { get; set; }
         public decimal Iva { get; set; }
-        public bool EstadoFactura { get; set; }
         public Cliente cliente { get; set; }
         public decimal SubTotal { get; set; }
         public decimal Totales { get; set; }

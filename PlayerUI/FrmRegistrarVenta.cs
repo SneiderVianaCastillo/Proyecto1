@@ -191,13 +191,13 @@ namespace PlayerUI
             if (codigo != "")
             {
                 DetalleFactura detalle = MapearProductos();
+
                 foreach (var item in LisDetalleAux)
                 {
+                  
                     if (item.Productos_id == codigo)
                     {
-                        
-
-                        
+                       
                         detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
                         if (item.Iva == 19)
                         {
@@ -308,10 +308,9 @@ namespace PlayerUI
                 Factura factura = MapearFactura();
                 string mensaje = facturaService.Guardar(factura);
                
-
-                DetalleFactura detalle = new DetalleFactura();
                 for (int i = 0; i <= LisDetalle.Count; i++)
                 {
+                    DetalleFactura detalle = new DetalleFactura();
                     MapearListDetalle(detalle, i);
                     detalleFacturaService.Guardar(detalle);
                 }
@@ -337,7 +336,7 @@ namespace PlayerUI
             txtIvaTotall.Text = "";
             dtgFactura.Columns.Clear();
             agregarTabla();
-           //var LisDetalle = new List<DetalleFactura>(); LisDetalle.Clear();
+           //LisDetalle.Clear();
         }
   
     }

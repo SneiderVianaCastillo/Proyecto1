@@ -23,7 +23,7 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR_TRAB.INSERTAR_TRABAJADOR";
+                command.CommandText = "PKG_TRABAJADOR.SP_INSERTAR_TRABAJADOR";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
                 command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = trabajador.PrimerNombre;
@@ -85,7 +85,7 @@ namespace DAL
         {
             using (var comando = _connection.CreateCommand())
             {
-                comando.CommandText = "PKG_CONSULTAR_TRAB.CONSULTAR_TRABAJADOR";
+                comando.CommandText = "PKG_TRABAJADOR.SP_CONSULTAR_TRABAJADOR";
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("CURSORMEMORIA1", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 using (var reader = comando.ExecuteReader())
@@ -105,23 +105,20 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update Trabajador set Trabajador_Id=:Identificacion,PrimerNombre=:PrimerNombre,SegundoNombre=:SegundoNombre, 
-                PrimerApellido=:PrimerApellido, SegundoApellido=:SegundoApellido,Telefono=:Telefono,Cargo=:Cargo,Barrio=:Barrio,Ciudad=:Ciudad,
-                Comuna=:Comuna,N_Casa=:N_Casa,Email=:Email
-                                        where Trabajador_Id=:Identificacion";
-
-                command.Parameters.Add("Trabajador_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
-                command.Parameters.Add("PrimerNombre", OracleDbType.Varchar2).Value = trabajador.PrimerNombre;
-                command.Parameters.Add("SegundoNombre", OracleDbType.Varchar2).Value = trabajador.SegundoNombre;
-                command.Parameters.Add("PrimerApellido", OracleDbType.Varchar2).Value = trabajador.PrimerApellido;
-                command.Parameters.Add("SegundoApellido", OracleDbType.Varchar2).Value = trabajador.SegundoApellido;
-                command.Parameters.Add("Telefono", OracleDbType.Varchar2).Value = trabajador.Telefono;
-                command.Parameters.Add("Cargo", OracleDbType.Varchar2).Value = trabajador.Cargo;
-                command.Parameters.Add("Barrio", OracleDbType.Varchar2).Value = trabajador.Barrio;
-                command.Parameters.Add("Ciudad", OracleDbType.Varchar2).Value = trabajador.Ciudad;
-                command.Parameters.Add("Comuna", OracleDbType.Varchar2).Value = trabajador.Comuna;
-                command.Parameters.Add("N_Casa", OracleDbType.Varchar2).Value = trabajador.N_Casa;
-                command.Parameters.Add("Email", OracleDbType.Varchar2).Value = trabajador.Email;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_TRABAJADOR.SP_MODIFICAR_TRABAJADOR";
+                command.Parameters.Add("@xTrabajador_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
+                command.Parameters.Add("@xPrimerNombre", OracleDbType.Varchar2).Value = trabajador.PrimerNombre;
+                command.Parameters.Add("@xSegundoNombre", OracleDbType.Varchar2).Value = trabajador.SegundoNombre;
+                command.Parameters.Add("@xPrimerApellido", OracleDbType.Varchar2).Value = trabajador.PrimerApellido;
+                command.Parameters.Add("@xSegundoApellido", OracleDbType.Varchar2).Value = trabajador.SegundoApellido;
+                command.Parameters.Add("@xTelefono", OracleDbType.Varchar2).Value = trabajador.Telefono;
+                command.Parameters.Add("@xCargo", OracleDbType.Varchar2).Value = trabajador.Cargo;
+                command.Parameters.Add("@xBarrio", OracleDbType.Varchar2).Value = trabajador.Barrio;
+                command.Parameters.Add("@xCiudad", OracleDbType.Varchar2).Value = trabajador.Ciudad;
+                command.Parameters.Add("@xComuna", OracleDbType.Varchar2).Value = trabajador.Comuna;
+                command.Parameters.Add("@xN_Casa", OracleDbType.Varchar2).Value = trabajador.N_Casa;
+                command.Parameters.Add("@xEmail", OracleDbType.Varchar2).Value = trabajador.Email;
 
 
                 OracleTransaction transaction = _connection.BeginTransaction();
@@ -137,8 +134,9 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Delete from Trabajador where Trabajador_id=:Identificacion";
-                command.Parameters.Add("cliente_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_TRABAJADOR.SP_ELIMINAR_TRABAJADOR";
+                command.Parameters.Add("@cliente_id", OracleDbType.Varchar2).Value = trabajador.Identificacion;
                 var filas = command.ExecuteNonQuery();
                 return filas;
             }
