@@ -199,30 +199,37 @@ namespace PlayerUI
                     {
                        
                         detalle.Cantidad = Convert.ToInt32(txtCantidad.Text);
-                        if (item.Iva == 19)
+                        if (detalle.Cantidad <= item.Existencia)
                         {
-                            detalle.productos.Iva = Convert.ToDecimal(Iva);
+                            if (item.Iva == 19)
+                            {
+                                detalle.productos.Iva = Convert.ToDecimal(Iva);
+                            }
+                            else
+                            {
+                                detalle.productos.Iva = 0;
+                            }
+                            detalle.productos.Precio_venta = item.Precio_venta;
+                            detalle.productos.Nombre = item.Nombre;
+                            detalle.productos.Tipo = item.Tipo;
+                            detalle.productos.Productos_id = item.Productos_id;
+                            detalle.CalcularSubTotal();
+                            detalle.CalcularIva();
+                            detalle.CalcularTotal();
+                            detalle.CodigoFactura = txtNFactura.Text;
+                            detalle.DetalleFac_id = txtNFactura.Text + i;
+                            detalle.Total = detalle.Total;
+                            i++;
+                            LisDetalle.Add(detalle);
+
+
+                            dtgFactura.Rows.Add(txtCodigo.Text, txtNombreProducto.Text, txtPrecio.Text, txtCantidad.Text, detalle.Iva, detalle.Subtotal, detalle.Total);
+                            LimpiarPro();
                         }
                         else
                         {
-                            detalle.productos.Iva = 0;
+                            MessageBox.Show("Cantida sobre pasa a la existencia del producto, la existencia es de:" + item.Existencia);
                         }
-                        detalle.productos.Precio_venta = item.Precio_venta;
-                        detalle.productos.Nombre = item.Nombre;
-                        detalle.productos.Tipo = item.Tipo;
-                        detalle.productos.Productos_id = item.Productos_id;
-                        detalle.CalcularSubTotal();
-                        detalle.CalcularIva();
-                        detalle.CalcularTotal();
-                        detalle.CodigoFactura = txtNFactura.Text;
-                        detalle.DetalleFac_id = txtNFactura.Text + i;
-                        detalle.Total = detalle.Total;
-                        i++;
-                        LisDetalle.Add(detalle);
-                        
-
-                        dtgFactura.Rows.Add(txtCodigo.Text, txtNombreProducto.Text, txtPrecio.Text, txtCantidad.Text, detalle.Iva,detalle.Subtotal,detalle.Total);
-                        LimpiarPro();
                     }
                              
                 }
@@ -338,6 +345,10 @@ namespace PlayerUI
             agregarTabla();
            //LisDetalle.Clear();
         }
-  
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            LimpiarFactura();
+        }
     }
 }

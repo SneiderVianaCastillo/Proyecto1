@@ -117,8 +117,8 @@ namespace PlayerUI
             foreach (var item in facturas)
             {
                 if(factura_id == item.Factura_id)
-                    encontro = "si";
                 dtgFacturas.Rows.Add(item.Factura_id, item.Totales, item.Fecha, item.cliente.Identificacion, item.FormaPago);
+                encontro = "si";
             }
             foreach (var item in LisDetalleFacturas)
             {

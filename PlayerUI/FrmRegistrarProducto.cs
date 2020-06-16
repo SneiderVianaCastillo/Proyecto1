@@ -309,7 +309,7 @@ namespace PlayerUI
             if (respuesta == DialogResult.Yes)
             {
                 int Cantidad = Convert.ToInt32(txtCantidad.Text);
-                Productos productos  = MapearProductos();
+                Productos productos = MapearProductos();
                 productos.CalcularExistencia(Cantidad);
                 string mensaje = productosService.ModificarTodos(productos);
                 MessageBox.Show(mensaje, "Mensaje de Modificación", MessageBoxButtons.OK, MessageBoxIcon.Information);

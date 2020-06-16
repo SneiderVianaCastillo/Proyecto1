@@ -22,7 +22,7 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR_PRODUCTOS.INSERTAR_PRODUCTOS";
+                command.CommandText = "PKG_PRODUCTOS.INSERTAR_PRODUCTOS";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("Productos_id", OracleDbType.Varchar2).Value = productos.Productos_id;
                 command.Parameters.Add("nombre", OracleDbType.Varchar2).Value = productos.Nombre;
@@ -74,7 +74,7 @@ namespace DAL
         {
             using (var comando = _connection.CreateCommand())
             {
-                comando.CommandText = "PKG_CONSULTAR_PRODUCTOS.CONSULTAR_PRODUCTOS";
+                comando.CommandText = "PKG_PRODUCTOS.SP_CONSULTAR_PRODUCTOS";
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("CURSORMEMORIA", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 using (var reader = comando.ExecuteReader())
@@ -95,22 +95,18 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = @"update Productos set Productos_id=:Productos_id,nombre=:Nombre,
-                            Descripcion=:Descripcion,precio_venta=:Precio_venta,
-                             precio_costo=:Precio_costo,Iva=:Iva,tipo=:Tipo,modelo=:Modelo,cantidad=:Cantidad,
-                                     Existencia=:Existencia
-                                        where Productos_id=:Productos_id";
-
-                command.Parameters.Add("Productos_id", OracleDbType.Varchar2).Value = productos.Productos_id;
-                command.Parameters.Add("nombre", OracleDbType.Varchar2).Value = productos.Nombre;
-                command.Parameters.Add("Descripcion", OracleDbType.Varchar2).Value = productos.Descripcion;
-                command.Parameters.Add("precio_venta", OracleDbType.Varchar2).Value = productos.Precio_venta;
-                command.Parameters.Add("precio_costo", OracleDbType.Varchar2).Value = productos.Precio_costo;
-                command.Parameters.Add("Iva", OracleDbType.Varchar2).Value = productos.Iva;
-                command.Parameters.Add("tipo", OracleDbType.Varchar2).Value = productos.Tipo;
-                command.Parameters.Add("modelo", OracleDbType.Varchar2).Value = productos.Modelo;
-                command.Parameters.Add("cantidad", OracleDbType.Varchar2).Value = productos.Cantidad;
-                command.Parameters.Add("Existencia", OracleDbType.Varchar2).Value = productos.Existencia;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_PRODUCTOS.SP_MODIFICAR_PRODUCTOS";
+                command.Parameters.Add("@xProductos_id", OracleDbType.Varchar2).Value = productos.Productos_id;
+                command.Parameters.Add("@xnombre", OracleDbType.Varchar2).Value = productos.Nombre;
+                command.Parameters.Add("@xDescripcion", OracleDbType.Varchar2).Value = productos.Descripcion;
+                command.Parameters.Add("@xprecio_venta", OracleDbType.Varchar2).Value = productos.Precio_venta;
+                command.Parameters.Add("@xprecio_costo", OracleDbType.Varchar2).Value = productos.Precio_costo;
+                command.Parameters.Add("@xIva", OracleDbType.Varchar2).Value = productos.Iva;
+                command.Parameters.Add("@xtipo", OracleDbType.Varchar2).Value = productos.Tipo;
+                command.Parameters.Add("@xmodelo", OracleDbType.Varchar2).Value = productos.Modelo;
+                command.Parameters.Add("@xcantidad", OracleDbType.Varchar2).Value = productos.Cantidad;
+                command.Parameters.Add("@xExistencia", OracleDbType.Varchar2).Value = productos.Existencia;
 
 
                 OracleTransaction transaction = _connection.BeginTransaction();
@@ -124,8 +120,9 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "Delete from Productos where Productos_id=:Productos_id";
-                command.Parameters.Add("Rut", OracleDbType.Varchar2).Value = productos.Productos_id;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "PKG_PRODUCTOS.SP_ELIMINAR_PRODUCTOS";
+                command.Parameters.Add("xProductos_id", OracleDbType.Varchar2).Value = productos.Productos_id;
                 var filas = command.ExecuteNonQuery();
                 return filas;
             }

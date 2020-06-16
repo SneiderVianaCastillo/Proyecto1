@@ -23,7 +23,7 @@ namespace DAL
         {
             using (var command = _connection.CreateCommand())
             {
-                command.CommandText = "PKG_INSERTAR_DETALLEFACTURA.INSERTAR_DETALLEFACTURA";
+                command.CommandText = "PKG_DETALLEFACTURA.SP_INSERTAR_DETALLEFACTURA";
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.Add("DetalleFac_id", OracleDbType.Varchar2).Value = detalleFactura.DetalleFac_id;
                 command.Parameters.Add("Producto_id", OracleDbType.Varchar2).Value = detalleFactura.productos.Productos_id;
@@ -71,7 +71,7 @@ namespace DAL
         {
             using (var comando = _connection.CreateCommand())
             {
-                comando.CommandText = "PKG_CONSULTAR_DETALLEFACTURA.CONSULTAR_DETALLEFACTURA";
+                comando.CommandText = "PKG_DETALLEFACTURA.SP_CONSULTAR_DETALLEFACTURA";
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.Add("CURSORMEMORIA", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
                 using (var reader = comando.ExecuteReader())

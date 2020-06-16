@@ -67,7 +67,7 @@
             this.DtgConsultarProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DtgConsultarProductos.Location = new System.Drawing.Point(57, 146);
             this.DtgConsultarProductos.Name = "DtgConsultarProductos";
-            this.DtgConsultarProductos.Size = new System.Drawing.Size(658, 150);
+            this.DtgConsultarProductos.Size = new System.Drawing.Size(658, 342);
             this.DtgConsultarProductos.TabIndex = 21;
             this.DtgConsultarProductos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DtgConsultarProductos_CellContentClick);
             // 
@@ -91,7 +91,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(30)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(792, 366);
+            this.ClientSize = new System.Drawing.Size(792, 552);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.DtgConsultarProductos);
             this.Controls.Add(this.label1);
