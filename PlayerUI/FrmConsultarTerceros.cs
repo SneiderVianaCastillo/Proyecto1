@@ -118,7 +118,12 @@ namespace PlayerUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            correo.enviarCorreo("sneiderviana7@gmail.com", "carmencastillo14", "lista de cliente registrados en el proyecto de rafael rojas y sneider viana" ,"Enviar pdf al correo", txtCorreo.Text, txtAdjuntar.Text);
+            correo.enviarCorreoClientes("sneiderviana7@gmail.com", "carmencastillo14", "lista de cliente registrados en el proyecto de rafael rojas y sneider viana" ,"Enviar pdf al correo", txtCorreo.Text, txtAdjuntar.Text);
+
+        }
+
+        private void txtAdjuntar_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }

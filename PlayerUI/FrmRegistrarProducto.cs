@@ -248,26 +248,6 @@ namespace PlayerUI
         }
         private void ProductosPdf()
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Guardar Informe De Productos Comprados";
-            saveFileDialog.InitialDirectory = @"c:/document";
-            saveFileDialog.DefaultExt = "pdf";
-            string filename = "";
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                filename = saveFileDialog.FileName;
-                if (filename != "" && LisProductos.Count > 0)
-                {
-                    string mensaje = productosService.GenerarProductosPdf(LisProductos, filename);
-
-                    MessageBox.Show(mensaje, "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                }
-                else
-                {
-                    MessageBox.Show("No se especifico una ruta o No hay datos para generar el reporte", "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
         }
 
         private void buttonBuscarPro_Click(object sender, EventArgs e)

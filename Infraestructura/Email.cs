@@ -20,7 +20,7 @@ namespace Infraestructura
         MailMessage correos = new MailMessage();
         SmtpClient envios = new SmtpClient();
 
-        public void enviarCorreo(string emisor, string password, string mensaje, string asunto,string destinatario, string ruta)
+        public void enviarCorreoClientes(string emisor, string password, string mensaje, string asunto,string destinatario, string ruta)
         {
             try
             {
@@ -99,6 +99,39 @@ namespace Infraestructura
             }
         }
 
+        public void enviarCorreoFactura(string emisor, string password, string mensaje, string asunto, string destinatario, string ruta)
+        {
+            try
+            {
+                correos.To.Clear();
+                correos.Body = "";
+                correos.Subject = "";
+                correos.Body = mensaje;
+                correos.Subject = asunto;
+                correos.IsBodyHtml = true;
+                correos.To.Add(destinatario.Trim());
+
+                if (ruta.Equals("") == false)
+                {
+                    System.Net.Mail.Attachment archivo = new System.Net.Mail.Attachment(ruta);
+                    correos.Attachments.Add(archivo);
+                }
+
+                correos.From = new MailAddress(emisor);
+                envios.Credentials = new NetworkCredential(emisor, password);
+
+                envios.Host = "smtp.gmail.com";
+                envios.Port = 587;
+                envios.EnableSsl = true;
+                envios.Send(correos);
+                MessageBox.Show("Factura enviada al correo del clientes");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "mensaje 1.0 vb.net", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
     }
 }

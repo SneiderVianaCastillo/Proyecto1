@@ -160,6 +160,7 @@
             this.txtAdjuntar.Name = "txtAdjuntar";
             this.txtAdjuntar.Size = new System.Drawing.Size(139, 20);
             this.txtAdjuntar.TabIndex = 68;
+            this.txtAdjuntar.TextChanged += new System.EventHandler(this.txtAdjuntar_TextChanged);
             // 
             // label3
             // 

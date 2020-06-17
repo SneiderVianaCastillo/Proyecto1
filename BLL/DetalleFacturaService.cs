@@ -101,5 +101,20 @@ namespace BLL
 
         }
 
+
+        public string GenerarDetallePdf(List<DetalleFactura> detalleFacturas, string filename, Factura factura)
+        {
+            PDF documentoClientePdf = new PDF();
+            try
+            {
+                documentoClientePdf.GuardarDetallesPdf(detalleFacturas, filename,factura);
+                return "Se genró el Documento satisfactoriamente";
+            }
+            catch (Exception e)
+            {
+
+                return "Error al crear docuemnto" + e.Message;
+            }
+        }
     }
 }

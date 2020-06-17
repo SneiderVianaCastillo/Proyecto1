@@ -23,7 +23,6 @@ namespace PlayerUI
         ProductosService productosService;
         FacturaService facturaService;
         DetalleFacturaService detalleFacturaService;
-        Productos productos;
         Factura factura;
         DetalleFactura detalleFatura;
         List<Factura> LisFactura;
@@ -31,6 +30,10 @@ namespace PlayerUI
         List<Productos> LisDetalleAux;
         List<Factura> LisFacturaAux;
         int i = 1;
+        int N_Factura = 1;
+        string correo;
+        string ruta_correo;
+        Email email = new Email();
         public FrmRegistrarVenta()
         {
             InitializeComponent();
@@ -106,6 +109,7 @@ namespace PlayerUI
                 {
                     
                     txtNombreCliente.Text = respuesta.cliente.PrimerNombre;
+                    correo = respuesta.cliente.Email;
                     MessageBox.Show(respuesta.Mensaje, "Busqueda", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -322,8 +326,7 @@ namespace PlayerUI
                     detalleFacturaService.Guardar(detalle);
                 }
                 MessageBox.Show(mensaje, "Mensaje de Guardado", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                NFacturas();
-                LimpiarFactura();
+
             }
             catch (Exception ex)
             {
@@ -349,6 +352,39 @@ namespace PlayerUI
         private void button5_Click(object sender, EventArgs e)
         {
             LimpiarFactura();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            DetallesPdf();
+            email.enviarCorreoFactura("quickbillin2019@gmail.com", "programacion3", "lista de productos comprados", "Factura de compra", correo, ruta_correo);
+            NFacturas();
+            LimpiarFactura();
+        }
+        private void DetallesPdf()
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            Factura factura = MapearFactura();
+            saveFileDialog.Title = "Guardar Informe Venta";
+            saveFileDialog.InitialDirectory = @"c:/document";
+            saveFileDialog.DefaultExt = "pdf";
+            string filename = "";
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                filename = saveFileDialog.FileName;
+                if (filename != "" && LisDetalle.Count > 0)
+                {
+                    ruta_correo = filename;
+                    string mensaje = detalleFacturaService.GenerarDetallePdf(LisDetalle, filename, factura);
+
+                    MessageBox.Show(mensaje, "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                }
+                else
+                {
+                    MessageBox.Show("No se especifico una ruta o No hay datos para generar el reporte", "Generar Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
         }
     }
 }

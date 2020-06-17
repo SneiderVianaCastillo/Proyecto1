@@ -56,7 +56,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonGuardar = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.buttonPdf = new System.Windows.Forms.Button();
             this.dtgFactura = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -370,19 +370,20 @@
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
-            // button6
+            // buttonPdf
             // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button6.Image = ((System.Drawing.Image)(resources.GetObject("button6.Image")));
-            this.button6.Location = new System.Drawing.Point(698, 132);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(125, 90);
-            this.button6.TabIndex = 23;
-            this.button6.Text = "Imprimir";
-            this.button6.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.button6.UseVisualStyleBackColor = false;
+            this.buttonPdf.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPdf.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonPdf.Image = ((System.Drawing.Image)(resources.GetObject("buttonPdf.Image")));
+            this.buttonPdf.Location = new System.Drawing.Point(698, 132);
+            this.buttonPdf.Name = "buttonPdf";
+            this.buttonPdf.Size = new System.Drawing.Size(125, 90);
+            this.buttonPdf.TabIndex = 23;
+            this.buttonPdf.Text = "Imprimir";
+            this.buttonPdf.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.buttonPdf.UseVisualStyleBackColor = false;
+            this.buttonPdf.Click += new System.EventHandler(this.button6_Click);
             // 
             // dtgFactura
             // 
@@ -530,7 +531,7 @@
             this.Controls.Add(this.label15);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.dtgFactura);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.buttonPdf);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.buttonGuardar);
             this.Controls.Add(this.panel1);
@@ -572,7 +573,7 @@
         private System.Windows.Forms.Button buttonAñadir;
         private System.Windows.Forms.Button buttonGuardar;
         private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button buttonPdf;
         private System.Windows.Forms.DataGridView dtgFactura;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtNFactura;
